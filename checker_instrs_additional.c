@@ -29,12 +29,12 @@ int 		*ft_pop(int *arr, size_t len)
 
 void		ft_push_int(int *arr1, int *arr2, size_t *pos1, size_t *pos2)
 {
-	// if (pos2 > 0)
-	// {
-	arr1[(*pos1)] = arr2[(*pos2) - 1];
-	(*pos1)++;
-	(*pos2)--;
-	// }
+	if (pos2 > 0)
+	{
+		arr1[(*pos1)] = arr2[(*pos2) - 1];
+		(*pos1)++;
+		(*pos2)--;
+	}
 }
 
 void		ft_rotate_ints(int *arr, size_t len)
