@@ -6,35 +6,73 @@ void		ft_swap_ints(int *arr, size_t pos)
 
 	if (pos > 1)
 	{
-		temp = arr[pos - 1];
-		arr[pos - 1] = arr[pos];
-		arr[pos] = temp;
+		// printf("POS:%zu|ELEM POS:%d|ELEM POS - 1:%d\n", pos, arr[pos - 1], arr[pos - 2]);
+		
+		// temp = arr[pos - 1];
+		// arr[pos - 1] = arr[pos];
+		// arr[pos] = temp;
+		
+		//"top" is in the end of an array
+		// temp = arr[pos - 2];
+		// arr[pos - 2] = arr[pos - 1];
+		// arr[pos - 1] = temp;
+		
+		//"top" is in the beginning of an array
+		temp = arr[0];
+		arr[0] = arr[1];
+		arr[1] = temp;
 	}
 }
 
-int 		*ft_pop(int *arr, size_t len)
+void 		ft_push_int_rec(int *arr, size_t i, size_t *j, int value)
 {
-	size_t		i;
-	intmax_t	num;
-
-	i = 0;
-	while (i < len)
+	if (i == *j)
 	{
-		num = arr[i];
-		arr[i] = arr[i + 1];
-		arr[i + 1] = num;
+		arr[i] = value;
+		(*j)++;
+		return ;
 	}
-	return (arr);
+	ft_push_int_rec(arr, i + 1, j, arr[i]);
+	arr[i] = value;
+}
+
+void		ft_extract_int_rec(int *arr, size_t i, size_t *j, int value)
+{
+	if (i == *j)
+	{
+		arr[i] = value;
+		(*j)--;
+		return ;
+	}
+	ft_extract_int_rec(arr, i + 1, j, arr[i + 2]);
+	arr[i] = value;
 }
 
 void		ft_push_int(int *arr1, int *arr2, size_t *pos1, size_t *pos2)
 {
-	if (pos2 > 0)
+	int 		*temp1;
+	int 		*temp2;
+	int 		num;
+
+	#ifdef DEBUG
+	printf("VALUE OF POS2:%zu\n", *pos2);
+	#endif
+
+	//"top" is in the end of an array
+	// if ((*pos2) > 0)
+	// {
+	// 	arr1[(*pos1)] = arr2[(*pos2) - 1];
+	// 	(*pos1)++;
+	// 	(*pos2)--;
+	// }
+
+	//"top" is in the beginning of an array
+	if ((*pos2) > 0)
 	{
-		arr1[(*pos1)] = arr2[(*pos2) - 1];
-		(*pos1)++;
-		(*pos2)--;
+		ft_push_int_rec(arr1, 0, pos1, arr2[0]);
+		ft_extract_int_rec(arr2, 0, pos2, arr2[1]);
 	}
+
 }
 
 void		ft_rotate_ints(int *arr, size_t len)
@@ -82,22 +120,21 @@ void		ft_rev_rotate_ints(int *arr, size_t len)
 }
 
 
-bool		ft_check_if_sorted(int *arr, size_t len)
+bool		ft_is_sorted(int *arr, size_t len)
 {
 	size_t		i;
 
 	i = 0;
-	printf("CURR ELEM:%d\n", arr[i]);
+	// ft_print_iarr(arr, len);
 	while (arr[i])
 	{
-		printf("CURR ELEM:%d\n", arr[i]);
+#ifdef DEBUG
+		printf("ELEM:%d\n", arr[i]);
+#endif
 	    if (i + 1 == len)
 	        break ;
 		else if (arr[i] > arr[i + 1])
-		{
-			printf("CURR ELEM:%d|%d\n", arr[i], arr[i + 1]);
 			return (false);
-		}
 		i++;
 	}
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/29 21:39:32 by rbozhko           #+#    #+#             */
-/*   Updated: 2017/11/05 14:16:58 by rbozhko          ###   ########.fr       */
+/*   Updated: 2017/11/12 18:35:28 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static	char		**ft_realoc_n_copy(char **a, size_t *l, size_t n, size_t m)
 	return (temp);
 }
 
-char 				**ft_read_file(const int fd, char **arr)
+char				**ft_read_file(const int fd, char **arr)
 {
 	size_t		i;
 	size_t		len;
@@ -53,4 +53,3 @@ char 				**ft_read_file(const int fd, char **arr)
 	ft_strdel(&line);
 	return ((status == -1) ? NULL : arr);
 }
-

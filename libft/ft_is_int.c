@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_is_int.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/03 15:44:03 by rbozhko           #+#    #+#             */
-/*   Updated: 2016/12/03 15:45:59 by rbozhko          ###   ########.fr       */
+/*   Created: 2017/11/12 18:34:50 by rbozhko           #+#    #+#             */
+/*   Updated: 2017/11/12 18:34:52 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char const *s, int fd)
+bool		ft_is_int(char *str)
 {
-	if (s && (fd >= 0 && fd <= 4096))
-	{
-		ft_putstr_fd(s, fd);
-		write(fd, "\n", 1);
-	}
+	intmax_t		num;
+
+	num = ft_atoi_base(str, 10);
+	if (num >= -2147483648 && num <= 2147483647)
+		return (true);
+	else
+		return (false);
 }

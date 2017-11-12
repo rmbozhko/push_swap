@@ -1,1 +1,1 @@
-make re && ./checker 3 2 1 0
+make fclean && make && ARG=$1; ./push_swap $ARG | ./checker $ARG

@@ -1,6 +1,6 @@
 #include "checker.h"
 
-int 		ft_get_fd(char **arr)
+int 		ft_get_fd(t_checker *checker, char **arr)
 {
 	size_t		i;
 	int 		fd;
@@ -9,15 +9,21 @@ int 		ft_get_fd(char **arr)
 	fd = 0;
 	while (arr[i])
 	{
-		if (!ft_strcmp(arr[i], BONUS_FILE_FD) && arr[i + 1] != NULL)
+		if ((!ft_strcmp(arr[i], BONUS_OF_FD) && arr[i + 1] != NULL)
+			|| (!ft_strcmp(arr[i], BONUS_IF_FD) && arr[i + 1] != NULL))
 		{
-			fd = open(arr[i + 1], O_RDONLY);
-			printf("HERE!!!!!!!\n");
-			if (fd < 0 || fd > 4096) //|| read(fd, NULL, 0) == -1)
+			if ((!ft_strcmp(arr[i], BONUS_IF_FD)))
 			{
-				fd = -1;
-				break ;
+				checker->in_fd = open(arr[i + 1], O_RDONLY);
+				fd = checker->in_fd;
 			}
+			else if ((!ft_strcmp(arr[i], BONUS_IF_FD)))
+			{
+				checker->out_fd = open(arr[i + 1], O_WRONLY);
+				fd = checker->out_fd;
+			}
+			if (fd < 0 || fd > 4096)
+				return (-1);
 		}
 		i++;
 	}
@@ -63,58 +69,4 @@ char		*ft_get_color(char **arr)
 		i++;
 	}
 	return ((temp) ? ft_strdup(temp) : NULL);
-}
-
-void		ft_putnbrendl(int num)
-{
-	ft_putnbr(num);
-	ft_putchar('\n');
-}
-
-size_t		ft_largest_number(int *arr, size_t len)
-{
-	size_t		i;
-	size_t		size;
-
-	size = 0;
-	i = 0;
-	while (i < len)
-	{
-		size = (ft_numlen(arr[i]) > size) ? ft_numlen(arr[i]) : size;
-		i++;
-	}
-	return (size);
-}
-
-void		ft_nprint(char *str, size_t times)
-{
-	size_t		i;
-
-	i = 0;
-	while (i < times)
-	{
-		ft_putstr(str);
-		i++;
-	}
-}
-
-void		ft_display_instr_res(int *arr, size_t len, size_t move, bool flag)
-{
-	size_t		i;
-	size_t		mnum_len;
-
-	i = 0;
-	mnum_len = ft_largest_number(arr, len);
-
-	ft_putendl("------------------------------------------------------------");
-	ft_putstr("Instruction #");
-	ft_putnbrendl(move);
-	while (i < len)
-	{
-		ft_putnbrendl(arr[i]);
-		i++;
-	}
-	ft_nprint("-", mnum_len);
-	ft_nprint(" ", (mnum_len / 2 + (mnum_len % 2) ? 1 : 0));
-	ft_putendl((flag) ? "a" : "b"); 
 }

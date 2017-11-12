@@ -16,6 +16,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 typedef	struct	s_list
 {
@@ -24,6 +25,7 @@ typedef	struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+void			ft_print_iarr(int *arr, size_t len);
 char			*ft_reverse_str(char *str);
 int				ft_skip_whitespaces(char *str, int i);
 void			*ft_memset(void *b, int c, size_t len);
@@ -104,4 +106,8 @@ char			*ft_lstrip(char *str);
 char			*ft_rstrip(char *str);
 char			*ft_strip(char *str);
 char			**ft_read_file(const int fd, char **arr);
+void			ft_putnbrendl_fd(int num, int fd);
+void			ft_putnbrendl(int num);
+void			ft_throw_exception(char *str);
+bool			ft_is_int(char *str);
 #endif

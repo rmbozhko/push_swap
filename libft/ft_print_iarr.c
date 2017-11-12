@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   ft_print_iarr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/03 15:44:03 by rbozhko           #+#    #+#             */
-/*   Updated: 2016/12/03 15:45:59 by rbozhko          ###   ########.fr       */
+/*   Created: 2017/11/12 18:34:26 by rbozhko           #+#    #+#             */
+/*   Updated: 2017/11/12 18:34:40 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char const *s, int fd)
+void		ft_print_iarr(int *arr, size_t len)
 {
-	if (s && (fd >= 0 && fd <= 4096))
+	size_t		i;
+
+	i = 0;
+	while (i < len)
 	{
-		ft_putstr_fd(s, fd);
-		write(fd, "\n", 1);
+		ft_putnbrendl(arr[i]);
+		i++;
 	}
 }

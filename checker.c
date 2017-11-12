@@ -1,22 +1,5 @@
 #include "checker.h"
 
-void		ft_throw_exception(char *str)
-{
-	ft_putendl_fd(str, 2);
-	exit(1);
-}
-
-size_t		ft_is_int(char *str)
-{
-	intmax_t		num;
-
-	num = ft_atoi_base(str, 10);
-	if (num >= -2147483648 && num <= 2147483647)
-		return (1);
-	else
-		return (0);
-}
-
 char		*ft_bidarrjoin(char **arr, size_t len)
 {
 	char		*temp;
@@ -31,24 +14,26 @@ char		*ft_bidarrjoin(char **arr, size_t len)
 	str = temp;
 	while (i < len && !(j = 0))
 	{
-		ft_putendl(arr[i]);
 		arr_temp = ft_strsplit(arr[i++], ' ');
-		// ft_putendl("LOL!");
 		while (arr_temp[j])
 		{
 			temp = ft_strjoin(temp, arr_temp[j++]);
 			ft_strdel(&str);
 			str = temp;
-			printf("CURR j AND LEN:%zu|%zu\n", j, ft_bidlen(arr_temp));
 			(j < ft_bidlen(arr_temp) || i != len) ? temp = ft_strjoin(temp, " ") : 0;
 			(j < ft_bidlen(arr_temp) || i != len) ? ft_strdel(&str) : 0;
 			(j < ft_bidlen(arr_temp) || i != len) ? str = temp : 0;
 		}
-		// i++;
 		ft_free_bidarr(arr_temp, ft_bidlen(arr_temp));
 	}
-	printf("TEMP OF THE STRING:%s\n", temp);
 	return (temp);
+}
+
+size_t			ft_omit_whitespaces(char *str, size_t i)
+{
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	return (i);
 }
 
 size_t			ft_bid_strlen(char **arr)
@@ -60,6 +45,8 @@ size_t			ft_bid_strlen(char **arr)
 	i = 0;
 	while (arr[i])
 	{
+		if (ft_omit_whitespaces(arr[i], 0) == ft_strlen(arr[i]))
+			return (0);
 		len += ft_strlen(arr[i]);
 		i++;
 	}
@@ -76,6 +63,7 @@ static void		ft_checker_init(t_checker *checker, char *args)
 	checker->stack_a = (int*)malloc(sizeof(int) * ft_bidlen(arr));
 	ft_bzero(checker->stack_a, sizeof(int*));
 	checker->counter_a = ft_bidlen(arr);
+	// printf("STACK A LEN:%zu\n", checker->counter_a);
 	checker->stack_b = (int*)malloc(sizeof(int) * ft_bidlen(arr));
 	ft_bzero(checker->stack_b, sizeof(int*));
 	checker->counter_b = 0;
@@ -91,8 +79,12 @@ static void		ft_checker_init(t_checker *checker, char *args)
 			else
 				checker->stack_a[i] = ft_atoi_base(arr[i], 10);
 		}
+#ifdef DEBUG
+		printf("INT_ELEM OF STACK:%i\n", checker->stack_a[i]);
+#endif
 		i++;
 	}
+	ft_free_bidarr(arr, checker->counter_a);
 }
 
 int			main(int ac, char const **av)
@@ -100,19 +92,29 @@ int			main(int ac, char const **av)
 	t_checker		checker;
 	char			*args;
 
-	if ((ac > 1) && (ft_bid_strlen(((char**)av) + 1) > 0))
+	if ((ac > 1))
 	{
-		args = NULL;
-		(av)++;
-		args = ft_validate_args(ft_bidarrjoin((char**)av,
-			ft_bidlen((char**)av)), &checker);
-		printf("YOYOOY%s\n", args);
-		(args) ? 0 : ft_output(1, &checker);
-		printf("ARGUMENTS:%s\n", args);
-		(ft_bidlen(checker.input)) ? ft_validate_instrs(&checker, 0) : ft_output(2, &checker);
-		ft_putendl("YO, I am sTUCKED!");
-		ft_checker_init(&checker, args);
-		ft_handle_instrs(&checker);
+		if (ft_bid_strlen(((char**)av) + 1) > 0)
+		{
+			args = NULL;
+			(av)++;
+			checker.in_fd = 0;
+			checker.out_fd = 0;
+			args = ft_validate_args(ft_bidarrjoin((char**)av,
+				ft_bidlen((char**)av)), &checker);
+#ifdef DEBUG
+			printf("ARGUMENTS:%s\n", args);
+#endif
+			if (!args)
+				ft_output(1, &checker);
+			else
+			{
+				ft_checker_init(&checker, args);
+				(!checker.in_fd) ? ft_validate_instrs(&checker) : ft_validate_file_instrs(&checker);
+			}
+		}
+		else
+			ft_output(1, &checker);
 	}
 	return (0);
 }

@@ -4,7 +4,8 @@ CC = gcc
 SRC = get_next_line.c checker.c checker_valid.c checker_additional.c checker_bonus.c checker_instrs.c checker_instrs_additional.c
 
 OBJ = $(SRC:.c=.o)
-CFLAGS = -c #-Wall -Wextra -Werror
+DEBUG = #-DDEBUG
+CFLAGS = -c $(DEBUG)#-Wall -Wextra -Werror
 HEADER = checker.h
 
 all: $(NAME)
