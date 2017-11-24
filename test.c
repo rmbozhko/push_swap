@@ -51,6 +51,7 @@ void		ft_extract_int_rec(int *arr1, size_t i, size_t *j, int value)
 	ft_extract_int_rec(arr1, i + 1, j, arr1[i + 2]);
 	arr1[i] = value;
 }
+
 #define LEN 5
 int 		main(void)
 {

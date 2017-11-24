@@ -213,6 +213,7 @@ void		ft_validate_instrs(t_checker *checker)
 	}
 	if (status == -1)
 		ft_throw_exception("During stdin reading error occured.");
+	// printf("FD:%d\n", checker->in_fd);
 	((ft_is_sorted(checker->stack_a, checker->counter_a))
 		? ft_output(3, checker) : ft_output(2, checker));
 }

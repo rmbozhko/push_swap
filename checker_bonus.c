@@ -58,7 +58,7 @@ char		*ft_get_color(char **arr)
 	char 		*temp;
 
 	i = 0;
-	temp = BLACK;
+	temp = WHITE;
 	while (arr[i])
 	{
 		if (!ft_strcmp(arr[i], BONUS_COLOR) && arr[i + 1] != NULL)

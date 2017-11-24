@@ -5,13 +5,25 @@ void		ft_output(int flag, t_checker *checker)
 	int 		fd;
 
 	fd = (flag == 1) ? 2 : 1;
+	// printf("FLAG:%d|%s|%d\n", flag, checker->color, fd);
 	ft_putstr_fd(checker->color, fd);
+	// printf("FLAG:%d\n", flag);
 	if (flag == 1)
+	{
+		// printf("PRINTING1!\n");
 		ft_putendl_fd("Error", 2);
+	}
 	else if (flag == 2)
+	{
+		// printf("PRINTING2!\n");
 		ft_putendl_fd("KO", 1);
+	}
 	else if (flag == 3)
+	{
+		// printf("PRINTING3!\n");
 		ft_putendl_fd("OK", 1);
+	}
+	// printf("PRINTING!\n");
 	ft_putstr_fd(RESET, fd);
 	exit((flag == 1) ? 1 : 0);
 }

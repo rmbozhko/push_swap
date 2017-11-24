@@ -29,6 +29,9 @@ void 		ft_push_int_rec(int *arr, size_t i, size_t *j, int value)
 	if (i == *j)
 	{
 		arr[i] = value;
+		#ifdef DEBUG
+			printf("HERE WE ARE:%zu|%d\n", i, value);
+			#endif
 		(*j)++;
 		return ;
 	}
@@ -40,11 +43,13 @@ void		ft_extract_int_rec(int *arr, size_t i, size_t *j, int value)
 {
 	if (i == *j)
 	{
-		arr[i] = value;
-		(*j)--;
+		arr[--(*j)] = value;//i] = value;
+		// printf("VALUE:%zu|%zu|%d\n", i, *j, value);
+		// (*j)--;
 		return ;
 	}
 	ft_extract_int_rec(arr, i + 1, j, arr[i + 2]);
+	// printf("VALUE:%zu|%zu|%d\n", i, *j, value);
 	arr[i] = value;
 }
 
@@ -69,10 +74,19 @@ void		ft_push_int(int *arr1, int *arr2, size_t *pos1, size_t *pos2)
 	//"top" is in the beginning of an array
 	if ((*pos2) > 0)
 	{
+		// num = arr2[0];
+		#ifdef DEBUG
+			printf("POS1:%zu|%d\n", *pos1, arr2[0]);
+		#endif
 		ft_push_int_rec(arr1, 0, pos1, arr2[0]);
+		#ifdef DEBUG
+			printf("YO, HERE WE ARE:%d|%zu|%zu\n", arr1[0], *pos1, *pos2);
+		#endif
 		ft_extract_int_rec(arr2, 0, pos2, arr2[1]);
+		#ifdef DEBUG
+			printf("YO, HERE WE ARE:%d|%zu|%zu\n", arr2[0], *pos1, *pos2);
+		#endif
 	}
-
 }
 
 void		ft_rotate_ints(int *arr, size_t len)
