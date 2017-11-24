@@ -48,6 +48,7 @@ char				**ft_read_file(const int fd, char **arr)
 		(i == len) ? arr = ft_realoc_n_copy(arr, &len, i, MEMORY_COEF) : 0;
 		arr[i++] = ft_strdup(line);
 	}
+	printf("status:%d\n", status);
 	ft_putendl("Troubles?!");
 	arr[i] = NULL;
 	ft_strdel(&line);

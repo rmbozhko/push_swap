@@ -8,11 +8,10 @@
 
 # define INSTRS_NUM 11
 
-# define BONUS_FILE_FD "-f"
 # define BONUS_COLOR "-c"
 # define BONUS_INFO "-i"
-# define BONUS_IF_FD "-if" // file to read from
-# define BONUS_OF_FD "-of" // file to write in
+# define BONUS_IF_FD "-istream" // file to read from
+# define BONUS_OF_FD "-ostream" // file to write in
 
 # define BLACK "\033[0;30m"
 # define RED "\033[0;31m"
@@ -56,6 +55,7 @@ char		*ft_bidarrjoin(char **arr, size_t len);
 char 		**ft_get_defined_instrs(void);
 void		ft_output(int flag, t_checker *checker);
 int 		ft_get_fd(t_checker *checker, char **arr);
+bool 		ft_is_bonus_flag(char **arr, size_t i);
 
 void		ft_validate_instrs(t_checker *checker);
 void		ft_validate_file_instrs(t_checker *checker);

@@ -1,35 +1,19 @@
 #include "checker.h"
 
-static size_t		ft_check_are_digits(char **arr)
+static	size_t		ft_check_are_digits(char **arr)
 {
 	size_t		i;
 
 	i = 0;
 	while (arr[i])
 	{
-		if (!ft_is_numeric(arr[i])) // is it allowed +12 or -29 in push_swap?????
+		if (!ft_is_numeric(arr[i]))
 		{
-			// if (i != 0)
-			// {
-			// 	if (ft_strcmp(arr[i - 1], BONUS_FILE_FD) != 0
-			// 		&& ft_strcmp(arr[i], BONUS_FILE_FD) != 0
-			// 		&& ft_strcmp(arr[i - 1], BONUS_COLOR) != 0
-			// 		&& ft_strcmp(arr[i], BONUS_COLOR) != 0)
-			// 	{
-			// 		return (1);
-			// 	}
-			// }
-			// else
-			// {
-			// 	if (ft_strcmp(arr[i], BONUS_FILE_FD) != 0 && ft_strcmp(arr[i], BONUS_COLOR) != 0)
-			// 	{
-			// 		return (1);
-			// 	}
-			// }
-#ifdef DEBUG
-			printf("ERROR ELEM:%s\n", arr[i]);
-#endif
-			return (1);
+			#ifdef DEBUG
+				printf("ERROR ELEM:%s\n", arr[i]);
+			#endif
+			if (!ft_is_bonus_flag(arr, i))
+				return (1);
 		}
 		i++;
 	}
@@ -45,19 +29,11 @@ static size_t		ft_check_are_ints(char **arr)
 	{
 		if (!ft_is_int(arr[i]))
 		{
-			// if (i != 0)
-			// {
-			// 	if (ft_strcmp(arr[i - 1], BONUS_FILE_FD)
-			// 		|| ft_strcmp(arr[i], BONUS_FILE_FD)
-			// 		|| ft_strcmp(arr[i - 1], BONUS_COLOR)
-			// 		|| ft_strcmp(arr[i], BONUS_COLOR))
-			// 		return (1);
-			// }
-			// else
 			#ifdef DEBUG
-			printf("ERROR ELEM:%s\n", arr[i]);
+				printf("ERROR ELEM:%s\n", arr[i]);
 			#endif
-			return (1);
+			if (!ft_is_bonus_flag(arr, i))
+				return (1);
 		}
 		i++;
 	}
@@ -72,26 +48,17 @@ static size_t		ft_check_are_duplicates(char **arr)
 	i = 0;
 	while (arr[i] && !(j = 0))
 	{
-		// printf("CURR[i]:%s|CURR[j]:%s\n", arr[i], arr[j]);
 		while (arr[j])
 		{
-			// printf("CURR[i]:%s|CURR[j]:%s\n", arr[i], arr[j]);
 			if (j != i)
 			{
 				if (!ft_strcmp(arr[j], arr[i]))
 				{
-					// printf("FOUND: %s|%s\n", arr[j], arr[i]);
-					// if (i != 0)
-					// {
-					// 	if (ft_strcmp(arr[i - 1], BONUS_FILE_FD)
-					// 		|| ft_strcmp(arr[i - 1], BONUS_COLOR))
-					// 		return (1);
-					// }
-					// else
 					#ifdef DEBUG
-					printf("ERROR ELEM:%s\n", arr[i]);
+						printf("ERROR ELEM:%s\n", arr[i]);
 					#endif
-					return (1);
+					if (!ft_is_bonus_flag(arr, i))
+						return (1);
 				}
 			}
 			j++;
@@ -138,16 +105,29 @@ char		*ft_validate_args(char *str, t_checker *checker)
 
 	arr = ft_strsplit(str, ' ');
 	errors = 0;
-	// printf("Start\n");
+	#ifdef DEBUG
+		printf("Start\n");
+	#endif
 	errors += ft_check_are_digits(arr);
-	// printf("IS_DIGIT ERROR:%zu\n", errors);
+	#ifdef DEBUG
+		printf("IS_DIGIT ERROR:%zu\n", errors);
+	#endif
 	errors += (!errors) ? ft_check_are_ints(arr) : 0;
-	// printf("INT-LIKE ERROR:%zu\n", errors);
+	#ifdef DEBUG
+		printf("INT-LIKE ERROR:%zu\n", errors);
+	#endif
 	errors += (!errors) ? ft_check_are_duplicates(arr) : 0;
-	// printf("DUPLICATE ERROR:%zu\n", errors);
+	#ifdef DEBUG
+		printf("DUPLICATE ERROR:%zu\n", errors);
+	#endif
 	if ((!errors) && ((ft_get_fd(checker, arr) == -1)
 		|| ((checker->color = ft_get_color(arr)) == NULL)))
+	{
 		errors++;
+		#ifdef DEBUG
+			printf("BONUS ERROR:%zu\n", errors);
+		#endif
+	}
 	// ft_putendl("Y!");
 	ft_free_bidarr(arr, ft_bidlen(arr));
 #ifdef DEBUG
@@ -181,10 +161,12 @@ void		ft_validate_file_instrs(t_checker *checker)
 	size_t 		i;
 
 	i = 0;
+	printf("IN_FD:%d\n", checker->in_fd);
 	if ((input = ft_read_file(checker->in_fd, NULL)) == NULL)
 		ft_throw_exception("Failed to read from file.");
 	while (input[i])
 	{
+		printf("YOYOYO\n");
 		if (!ft_find_instr(input[i]))
 		{
 			ft_free_bidarr(input, ft_bidlen(input));

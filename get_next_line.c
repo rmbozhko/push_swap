@@ -67,21 +67,24 @@ int				get_next_line(const int fd, char **line, char *str)
 		(bytes < BUFF_SIZE) ? buff[bytes] = '\0' : 0;
 		temp = ft_strjoin(temp, buff);
 		str = temp;
-		// ft_putendl(temp);
+		ft_putendl(temp);
 		if (ft_strlen(temp) > 0)
 		{
-			// printf("YO THERE IS SOME TEMP:%s\n", temp);
+			printf("YO THERE IS SOME TEMP:%s\n", temp);
 			if ((NL_CODE) || (!NL_CODE && ft_strlen(buff) == 0))
 				return (ft_rtn_line(temp, line));
 		}
 		else if ((bytes == 1 && buff[0] == '\n'))
 		{
-			// printf("I am out here!\n");
+			printf("I am out here!\n");
 			*line = ft_strdup("\n");
 			return (1);
 		}
 		else if (bytes == 0)
+		{
+			printf("DAMN!\n");
 			break ;
+		}
 	}
 	ft_strdel(&str);
 	return (0);

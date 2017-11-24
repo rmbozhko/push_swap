@@ -69,16 +69,8 @@ static void		ft_checker_init(t_checker *checker, char *args)
 	checker->counter_b = 0;
 	while (i < checker->counter_a)
 	{
-		if (ft_strcmp(arr[i], BONUS_FILE_FD) || ft_strcmp(arr[i], BONUS_COLOR))
-		{
-			if (i != 0)
-			{
-				if (ft_strcmp(arr[i - 1], BONUS_FILE_FD) || ft_strcmp(arr[i - 1], BONUS_COLOR))
-					checker->stack_a[i] = ft_atoi_base(arr[i], 10);
-			}
-			else
-				checker->stack_a[i] = ft_atoi_base(arr[i], 10);
-		}
+		if (!ft_is_bonus_flag(arr, i))
+			checker->stack_a[i] = ft_atoi_base(arr[i], 10);
 #ifdef DEBUG
 		printf("INT_ELEM OF STACK:%i\n", checker->stack_a[i]);
 #endif

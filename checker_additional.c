@@ -11,17 +11,17 @@ void		ft_output(int flag, t_checker *checker)
 	if (flag == 1)
 	{
 		// printf("PRINTING1!\n");
-		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Error", checker->out_fd);
 	}
 	else if (flag == 2)
 	{
 		// printf("PRINTING2!\n");
-		ft_putendl_fd("KO", 1);
+		ft_putendl_fd("KO", checker->out_fd);
 	}
 	else if (flag == 3)
 	{
 		// printf("PRINTING3!\n");
-		ft_putendl_fd("OK", 1);
+		ft_putendl_fd("OK", checker->in_fd);
 	}
 	// printf("PRINTING!\n");
 	ft_putstr_fd(RESET, fd);

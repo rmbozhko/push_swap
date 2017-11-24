@@ -71,6 +71,7 @@ void		ft_handle_file_instrs(char **input, t_checker *checker)
 	size_t		i;
 
 	i = 0;
+	printf("STTRING:%s\n", input[i]);
 	while (input[i])
 	{
 		if (input[i][0] == 's')
