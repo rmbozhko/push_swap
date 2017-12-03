@@ -1,7 +1,8 @@
 NAME = checker
 CC = gcc
+SHARED = ../shared
 
-SRC = get_next_line.c checker.c checker_valid.c checker_additional.c checker_bonus.c checker_instrs.c checker_instrs_additional.c
+SRC = get_next_line.c checker.c checker_valid.c checker_additional.c checker_bonus.c checker_instrs.c
 
 OBJ = $(SRC:.c=.o)
 DEBUG = #-DDEBUG
@@ -12,8 +13,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	#@make -C libft 
-	@$(CC) $(OBJ) -L./libft -lft -I$(HEADER) -o $(NAME)
-	@echo "\033[0;37mChecker is compiled\033[0m"
+	@$(CC) $(OBJ) -L../libft -lft -L./${SHARED} -lsh -I$(HEADER) -o $(NAME)
+	@echo "\033[0;37m${NAME} is compiled\033[0m"
 
 %.o : %.c $(HEADER)
 	@$(CC) $(CFLAGS) $<

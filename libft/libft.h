@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <fcntl.h>
 
 typedef	struct	s_list
 {
@@ -110,4 +111,6 @@ void			ft_putnbrendl_fd(int num, int fd);
 void			ft_putnbrendl(int num);
 void			ft_throw_exception(char *str);
 bool			ft_is_int(char *str);
+char			*ft_bidarrjoin(char **arr, size_t len);
+size_t			ft_omit_whitespaces(char *str, size_t i);
 #endif
