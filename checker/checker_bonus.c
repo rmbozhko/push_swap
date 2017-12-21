@@ -1,6 +1,6 @@
 #include "checker.h"
 
-int 		ft_get_fd(t_checker *checker, char **arr)
+int 		ft_get_fd(t_sh *shared, char **arr)
 {
 	size_t		i;
 	int 		fd;
@@ -14,13 +14,13 @@ int 		ft_get_fd(t_checker *checker, char **arr)
 		{
 			if ((!ft_strcmp(arr[i], BONUS_IF_FD)))
 			{
-				checker->in_fd = open(arr[i + 1], O_RDONLY);
-				fd = checker->in_fd;
+				shared->in_fd = open(arr[i + 1], O_RDONLY);
+				fd = shared->in_fd;
 			}
 			else if ((!ft_strcmp(arr[i], BONUS_OF_FD)))
 			{
-				checker->out_fd = open(arr[i + 1], O_WRONLY | O_CREAT, 0777);
-				fd = checker->out_fd;
+				shared->out_fd = open(arr[i + 1], O_WRONLY | O_CREAT, 0777);
+				fd = shared->out_fd;
 			}
 			if (fd < 0 || fd > 4096)
 			{

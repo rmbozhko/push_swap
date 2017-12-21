@@ -1,27 +1,27 @@
 #include "checker.h"
 
-void		ft_output(int flag, t_checker *checker)
+void		ft_output(int flag, t_sh *shared)
 {
 	int 		fd;
 
 	fd = (flag == 1) ? 2 : 1;
-	// printf("FLAG:%d|%s|%d\n", flag, checker->color, fd);
-	ft_putstr_fd(checker->color, fd);
+	// printf("FLAG:%d|%s|%d\n", flag, shared->color, fd);
+	ft_putstr_fd(shared->color, fd);
 	// printf("FLAG:%d\n", flag);
 	if (flag == 1)
 	{
 		// printf("PRINTING1!\n");
-		ft_putendl_fd("Error", checker->out_fd);
+		ft_putendl_fd("Error", shared->out_fd);
 	}
 	else if (flag == 2)
 	{
 		// printf("PRINTING2!\n");
-		ft_putendl_fd("KO", checker->out_fd);
+		ft_putendl_fd("KO", shared->out_fd);
 	}
 	else if (flag == 3)
 	{
 		// printf("PRINTING3!\n");
-		ft_putendl_fd("OK", checker->in_fd);
+		ft_putendl_fd("OK", shared->in_fd);
 	}
 	// printf("PRINTING!\n");
 	ft_putstr_fd(RESET, fd);

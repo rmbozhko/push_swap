@@ -21,6 +21,21 @@
 # define WHITE "\033[0;37m"
 # define RESET "\033[0m"
 
+typedef	struct 	s_sh
+{
+	int 		in_fd;
+	int 		out_fd;
+	char		*color;
+}				t_sh;
+
+typedef	struct 	s_stack
+{
+	int 		*stack_a;
+	int 		*stack_b;
+	size_t		counter_a;
+	size_t		counter_b;
+}				t_stack;
+
 size_t		ft_check_are_digits(char **arr);
 size_t		ft_check_are_ints(char **arr);
 size_t		ft_check_are_duplicates(char **arr);

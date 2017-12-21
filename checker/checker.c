@@ -1,34 +1,31 @@
 #include "checker.h"
 
-static void		ft_checker_init(t_checker *checker, char *args)
+static void		ft_checker_init(t_stack *stack, char *args)
 {
 	size_t			i;
 	char 			**arr;
 
 	i = 0;
 	arr = ft_strsplit(args, ' ');
-	checker->stack_a = (int*)malloc(sizeof(int) * ft_bidlen(arr));
-	ft_bzero(checker->stack_a, sizeof(int*));
-	checker->counter_a = ft_bidlen(arr);
-	// printf("STACK A LEN:%zu\n", checker->counter_a);
-	checker->stack_b = (int*)malloc(sizeof(int) * ft_bidlen(arr));
-	ft_bzero(checker->stack_b, sizeof(int*));
-	checker->counter_b = 0;
-	while (i < checker->counter_a)
+	stack->stack_a = (int*)malloc(sizeof(int) * ft_bidlen(arr));
+	ft_bzero(stack->stack_a, sizeof(int*));
+	stack->counter_a = ft_bidlen(arr);
+	stack->stack_b = (int*)malloc(sizeof(int) * ft_bidlen(arr));
+	ft_bzero(stack->stack_b, sizeof(int*));
+	stack->counter_b = 0;
+	while (i < stack->counter_a)
 	{
 		if (!ft_is_bonus_flag(arr, i))
-			checker->stack_a[i] = ft_atoi_base(arr[i], 10);
-#ifdef DEBUG
-		printf("INT_ELEM OF STACK:%i\n", checker->stack_a[i]);
-#endif
+			stack->stack_a[i] = ft_atoi_base(arr[i], 10);
 		i++;
 	}
-	ft_free_bidarr(arr, checker->counter_a);
+	ft_free_bidarr(arr, stack->counter_a);
 }
 
 int			main(int ac, char const **av)
 {
-	t_checker		checker;
+	t_stack			stack;
+	t_sh			shared;
 	char			*args;
 
 	if ((ac > 1))
@@ -37,23 +34,24 @@ int			main(int ac, char const **av)
 		{
 			args = NULL;
 			(av)++;
-			checker.in_fd = 0;
-			checker.out_fd = 0;
+			shared.in_fd = 0;
+			shared.out_fd = 0;
+			shared.color = WHITE;
 			args = ft_validate_args(ft_bidarrjoin((char**)av,
-				ft_bidlen((char**)av)), &checker);
-#ifdef DEBUG
-			printf("ARGUMENTS:%s\n", args);
-#endif
+				ft_bidlen((char**)av)), &shared);
 			if (!args)
-				ft_output(1, &checker);
+				ft_output(1, &shared);
 			else
 			{
-				ft_checker_init(&checker, args);
-				(!checker.in_fd) ? ft_validate_instrs(&checker) : ft_validate_file_instrs(&checker);
+				ft_checker_init(&stack, args);
+				if (!shared.in_fd)
+					ft_validate_instrs(&stack, &shared);
+				else
+					ft_validate_file_instrs(&stack, &shared);
 			}
 		}
 		else
-			ft_output(1, &checker);
+			ft_output(1, &shared);
 	}
 	return (0);
 }
