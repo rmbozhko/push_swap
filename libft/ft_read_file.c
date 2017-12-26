@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "../checker.h"
 
 static	char		**ft_realoc_n_copy(char **a, size_t *l, size_t n, size_t m)
 {
@@ -44,12 +43,9 @@ char				**ft_read_file(const int fd, char **arr)
 	line = ft_strnew(0);
 	while ((status = get_next_line(fd, &line, ft_strnew(0))) > 0)
 	{
-		ft_putendl("Nigga!");
 		(i == len) ? arr = ft_realoc_n_copy(arr, &len, i, MEMORY_COEF) : 0;
 		arr[i++] = ft_strdup(line);
 	}
-	printf("status:%d\n", status);
-	ft_putendl("Troubles?!");
 	arr[i] = NULL;
 	ft_strdel(&line);
 	return ((status == -1) ? NULL : arr);

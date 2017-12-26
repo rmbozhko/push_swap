@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "libft.h"
 
 static	int		ft_no_nl_line(char *temp, char **line)
 {
@@ -20,7 +20,6 @@ static	int		ft_no_nl_line(char *temp, char **line)
 	str = temp;
 	string = *line;
 	ft_strdel(&string);
-	printf("I AM THE FUCK HERE!\n");
 	*line = ft_strdup(temp);
 	ft_memset(temp, 0, ft_strlen(temp));
 	ft_strdel(&str);
@@ -36,10 +35,14 @@ static int		ft_rtn_line(char *temp, char **line)
 	string = *line;
 	if (NL_CODE)
 	{
-		printf("OR FUCK OUT HERE!!!!!!\n");
 		*line = ft_strsub(temp, 0, S_C_SUB);
 		ft_strdel(&string);
 		string = *line;
+		if (ft_strlen(temp) == 1 && temp[0] == '\n')
+		{
+			ft_strdel(&str);
+			return (0);
+		}
 		ft_strdel(&str);
 		return (1);
 	}
@@ -64,20 +67,21 @@ int				get_next_line(const int fd, char **line, char *str)
 		(bytes < BUFF_SIZE) ? buff[bytes] = '\0' : 0;
 		temp = ft_strjoin(temp, buff);
 		str = temp;
+		ft_putendl(temp);
 		if (ft_strlen(temp) > 0)
 		{
-			printf("YO THERE IS SOME TEMP:%s\n", temp);
 			if ((NL_CODE) || (!NL_CODE && ft_strlen(buff) == 0))
 				return (ft_rtn_line(temp, line));
 		}
 		else if ((bytes == 1 && buff[0] == '\n'))
 		{
-			printf("I am out here!\n");
 			*line = ft_strdup("\n");
-			return (0);//(1);
+			return (1);
 		}
 		else if (bytes == 0)
+		{
 			break ;
+		}
 	}
 	ft_strdel(&str);
 	return (0);

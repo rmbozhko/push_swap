@@ -24,23 +24,6 @@ char		*ft_rotate_args(char *str, char c)
 	return (string);
 }
 
-char		*ft_validate_args(char *str, t_sh *shared)
-{
-	char 		**arr;
-	size_t		errors;
-
-	arr = ft_strsplit(str, ' ');
-	errors = 0;
-	errors += ft_check_are_digits(arr);
-	errors += (!errors) ? ft_check_are_ints(arr) : 0;
-	errors += (!errors) ? ft_check_are_duplicates(arr) : 0;
-	if ((!errors) && ((ft_get_fd(shared, arr) == -1)
-		|| ((shared->color = ft_get_color(arr)) == NULL)))
-		errors++;
-	ft_free_bidarr(arr, ft_bidlen(arr));
-	return ((errors) ? NULL : str);
-}
-
 bool 		ft_find_instr(char *line)
 {
 	char 		**instrs;

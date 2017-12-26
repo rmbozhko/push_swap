@@ -12,12 +12,18 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# define MEMORY_COEF 5
 
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
 # include <fcntl.h>
+
+# define MEMORY_COEF 5
+# define BUFF_SIZE 1
+# define NL_CODE ft_strchr(temp, '\n')
+# define S_C_SUB (NL_CODE - temp)
+# define IF_FP ((fd < 0 || fd > 4096) || ((read(fd, buff, 0)) == -1 && !(head)))
+# define IF_SP (!(line) || !(ft_memset(buff, 0, BUFF_SIZE + 1)))
 
 typedef	struct	s_list
 {
@@ -25,6 +31,13 @@ typedef	struct	s_list
 	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
+
+typedef	struct	s_node
+{
+	int				fd;
+	char			*str;
+	struct s_node	*next;
+}				t_node;
 
 void			ft_print_iarr(int *arr, size_t len);
 char			*ft_reverse_str(char *str);
@@ -113,4 +126,6 @@ void			ft_throw_exception(char *str);
 bool			ft_is_int(char *str);
 char			*ft_bidarrjoin(char **arr, size_t len);
 size_t			ft_omit_whitespaces(char *str, size_t i);
+bool			ft_is_sorted(int *arr, size_t len);
+int				get_next_line(const int fd, char **line, char *str);
 #endif

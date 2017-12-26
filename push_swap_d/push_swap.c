@@ -1,12 +1,12 @@
 #include "push_swap.h"
 
-int		main(int argc, char const *argv[])
+int		main(int ac, char const *av[])
 {
 	t_stack			stack;
 	t_sh			shared;
 	char			*args;
 
-	if (argc > 1)
+	if (ac > 1)
 	{
 		if (ft_bid_strlen(((char**)av) + 1) > 0)
 		{
@@ -21,8 +21,8 @@ int		main(int argc, char const *argv[])
 				ft_output(1, &shared);
 			else
 			{
-				ft_initialization(&shared, args);
-				(!shared.in_fd) ? ft_validate_instrs(&shared) : ft_validate_file_instrs(&shared);
+				ft_initialization(&stack, args);
+				ft_sort_stack(&stack, &shared);
 			}
 		}
 		else

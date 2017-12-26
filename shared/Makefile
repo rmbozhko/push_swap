@@ -1,8 +1,8 @@
-NAME=libsh.a
+NAME = libsh.a
 
 CC = gcc
 
-SRC = sh_add_fts.c sh_instrs_def.c sh_args_validating.c
+SRC = sh_add_fts.c sh_instrs_def.c sh_args_validating.c sh_instrs_handle.c
 
 OBJ = $(SRC:.c=.o)
 DEBUG = #-DDEBUG

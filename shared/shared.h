@@ -51,4 +51,12 @@ void		ft_rotate_ints(int *arr, size_t len);
 void		ft_push_int(int *arr1, int *arr2, size_t *pos1, size_t *pos2);
 void		ft_swap_ints(int *arr, size_t pos);
 
+void		ft_initialization(t_stack *stack, char *args);
+void		ft_output(int flag, t_sh *shared);
+char		*ft_validate_args(char *str, t_sh *shared);
+int 		ft_get_fd(t_sh *shared, char **arr);
+
+void		ft_handle_instrs_s(t_stack *stack, char *str);
+void		ft_handle_instrs_p(t_stack *stack, char *str);
+void		ft_handle_instrs_r(t_stack *stack, char *str);
 #endif

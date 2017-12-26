@@ -1,25 +1,23 @@
 #include "checker.h"
 
-static void		ft_checker_init(t_stack *stack, char *args)
+char 		**ft_get_defined_instrs(void)
 {
-	size_t			i;
-	char 			**arr;
+	char 		**arr;
 
-	i = 0;
-	arr = ft_strsplit(args, ' ');
-	stack->stack_a = (int*)malloc(sizeof(int) * ft_bidlen(arr));
-	ft_bzero(stack->stack_a, sizeof(int*));
-	stack->counter_a = ft_bidlen(arr);
-	stack->stack_b = (int*)malloc(sizeof(int) * ft_bidlen(arr));
-	ft_bzero(stack->stack_b, sizeof(int*));
-	stack->counter_b = 0;
-	while (i < stack->counter_a)
-	{
-		if (!ft_is_bonus_flag(arr, i))
-			stack->stack_a[i] = ft_atoi_base(arr[i], 10);
-		i++;
-	}
-	ft_free_bidarr(arr, stack->counter_a);
+	arr = (char**)malloc((sizeof(char*) * INSTRS_NUM) + 1);
+	arr[0] = ft_strdup("sa");
+	arr[1] = ft_strdup("sb");
+	arr[2] = ft_strdup("ss");
+	arr[3] = ft_strdup("pa");
+	arr[4] = ft_strdup("pb");
+	arr[5] = ft_strdup("ra");
+	arr[6] = ft_strdup("rb");
+	arr[7] = ft_strdup("rr");
+	arr[8] = ft_strdup("rra");
+	arr[9] = ft_strdup("rrb");
+	arr[10] = ft_strdup("rrr");
+	arr[INSTRS_NUM] = NULL;
+	return (arr);
 }
 
 int			main(int ac, char const **av)
@@ -43,7 +41,7 @@ int			main(int ac, char const **av)
 				ft_output(1, &shared);
 			else
 			{
-				ft_checker_init(&stack, args);
+				ft_initialization(&stack, args);
 				if (!shared.in_fd)
 					ft_validate_instrs(&stack, &shared);
 				else

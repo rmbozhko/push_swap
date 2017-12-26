@@ -1,23 +1,33 @@
 #include "shared.h"
 
-bool		ft_is_sorted(int *arr, size_t len)
+int 		ft_get_fd(t_sh *shared, char **arr)
 {
 	size_t		i;
+	int 		fd;
 
 	i = 0;
-	// ft_print_iarr(arr, len);
+	fd = 0;
 	while (arr[i])
 	{
-#ifdef DEBUG
-		printf("ELEM:%d\n", arr[i]);
-#endif
-	    if (i + 1 == len)
-	        break ;
-		else if (arr[i] > arr[i + 1])
-			return (false);
+		if ((!ft_strcmp(arr[i], BONUS_OF_FD) && arr[i + 1] != NULL)
+			|| (!ft_strcmp(arr[i], BONUS_IF_FD) && arr[i + 1] != NULL))
+		{
+			if ((!ft_strcmp(arr[i], BONUS_IF_FD)))
+			{
+				shared->in_fd = open(arr[i + 1], O_RDONLY);
+				fd = shared->in_fd;
+			}
+			else if ((!ft_strcmp(arr[i], BONUS_OF_FD)))
+			{
+				shared->out_fd = open(arr[i + 1], O_WRONLY | O_CREAT, 0777);
+				fd = shared->out_fd;
+			}
+			if (fd < 0 || fd > 4096)
+				return (-1);
+		}
 		i++;
 	}
-	return (true);
+	return (fd);
 }
 
 size_t			ft_bid_strlen(char **arr)
@@ -48,12 +58,7 @@ char		*ft_handle_colors(char *str)
 	else if (!ft_strcmp(str, "YELLOW"))
 		return (YELLOW);
 	else if (!ft_strcmp(str, "BLUE"))
-	{
-		#ifdef DEBUG
-			printf("BLUE COLOR OUTPUT!\n");
-		#endif
 		return (BLUE);
-	}
 	else if (!ft_strcmp(str, "MAGENTA"))
 		return (MAGENTA);
 	else if (!ft_strcmp(str, "CYAN"))
@@ -61,12 +66,7 @@ char		*ft_handle_colors(char *str)
 	else if (!ft_strcmp(str, "WHITE"))
 		return (WHITE);
 	else
-	{
-		#ifdef DEBUG
-			printf("FUCKED UP!\n");
-		#endif
 		return (NULL);
-	}
 }
 
 char		*ft_get_color(char **arr)
@@ -81,9 +81,6 @@ char		*ft_get_color(char **arr)
 	{
 		if (!ft_strcmp(arr[i], BONUS_COLOR) && arr[i + 1] != NULL)
 		{
-			#ifdef DEBUG
-				printf("HERE WE ARE%s\n", arr[i]);
-			#endif
 			temp = ft_handle_colors(arr[i + 1]);
 			break ;
 		}
@@ -92,16 +89,63 @@ char		*ft_get_color(char **arr)
 	return ((temp) ? ft_strdup(temp) : NULL);
 }
 
-bool 		ft_is_bonus_flag(char **arr, size_t i)
+char		*ft_validate_args(char *str, t_sh *shared)
 {
-		if (!ft_strcmp(arr[i], BONUS_COLOR) || !ft_strcmp(arr[i], BONUS_INFO)
-			|| !ft_strcmp(arr[i], BONUS_IF_FD) || !ft_strcmp(arr[i], BONUS_OF_FD))
-			return (true);
-		else if (i != 0)
-		{
-			if (!ft_strcmp(arr[i - 1], BONUS_COLOR) || !ft_strcmp(arr[i - 1], BONUS_INFO)
-				|| !ft_strcmp(arr[i - 1], BONUS_IF_FD) || !ft_strcmp(arr[i - 1], BONUS_OF_FD))
-				return (true);
-		}
-	return (false);
+	char 		**arr;
+	size_t		errors;
+
+	arr = ft_strsplit(str, ' ');
+	errors = 0;
+	errors += ft_check_are_digits(arr);
+	errors += (!errors) ? ft_check_are_ints(arr) : 0;
+	errors += (!errors) ? ft_check_are_duplicates(arr) : 0;
+	if ((!errors) && ((ft_get_fd(shared, arr) == -1)
+		|| ((shared->color = ft_get_color(arr)) == NULL)))
+		errors++;
+	ft_free_bidarr(arr, ft_bidlen(arr));
+	return ((errors) ? NULL : str);
+}
+
+void		ft_initialization(t_stack *stack, char *args)
+{
+	size_t			i;
+	char 			**arr;
+
+	i = 0;
+	arr = ft_strsplit(args, ' ');
+	stack->stack_a = (int*)malloc(sizeof(int) * ft_bidlen(arr));
+	ft_bzero(stack->stack_a, sizeof(int*));
+	stack->counter_a = ft_bidlen(arr);
+	stack->stack_b = (int*)malloc(sizeof(int) * ft_bidlen(arr));
+	ft_bzero(stack->stack_b, sizeof(int*));
+	stack->counter_b = 0;
+	while (i < stack->counter_a)
+	{
+		if (!ft_is_bonus_flag(arr, i))
+			stack->stack_a[i] = ft_atoi_base(arr[i], 10);
+		i++;
+	}
+	ft_free_bidarr(arr, stack->counter_a);
+}
+
+void		ft_output(int flag, t_sh *shared)
+{
+	int 		fd;
+
+	fd = (flag == 1) ? 2 : 1;
+	ft_putstr_fd(shared->color, fd);
+	if (flag == 1)
+	{
+		ft_putendl_fd("Error", shared->out_fd);
+	}
+	else if (flag == 2)
+	{
+		ft_putendl_fd("KO", shared->out_fd);
+	}
+	else if (flag == 3)
+	{
+		ft_putendl_fd("OK", shared->in_fd);
+	}
+	ft_putstr_fd(RESET, fd);
+	exit((flag == 1) ? 1 : 0);
 }

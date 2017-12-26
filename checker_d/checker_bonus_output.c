@@ -19,11 +19,14 @@ void		ft_nprint(char *str, size_t times)
 {
 	size_t		i;
 
-	i = 0;
-	while (i < times)
+	if (str != NULL)
 	{
-		ft_putstr(str);
-		i++;
+		i = 0;
+		while (i < times)
+		{
+			ft_putstr(str);
+			i++;
+		}
 	}
 }
 
@@ -48,25 +51,25 @@ void		ft_display_instr_res(int *arr, size_t len, size_t move, bool flag)
 	ft_putendl((flag) ? "a" : "b"); 
 }
 
-void		ft_check_top(t_stack *stack, bool flag)
-{
-	char		**arr;
-	int			num;
+// void		ft_check_top(t_stack *stack, bool flag)
+// {
+// 	char		**arr;
+// 	int			num;
 
-	arr = ft_strsplit(stack->args, ' ');
-	ft_putstr("\t\t\t\tTop position of stack ");
-	ft_putstr((flag) ? "A:\t" : "B:\t");
-	if ((stack->counter_a == 0  && flag) || (stack->counter_b == 0 && !flag))
-		num = ft_bidlen(arr);
-	else
-		num = ft_bidlen(arr) - stack->((flag) ? counter_a : counter_b);
-	ft_putnbrendl(num);
-	ft_free_bidarr(arr, ft_bidlen(arr));
-}
+// 	arr = ft_strsplit(stack->args, ' ');
+// 	ft_putstr("\t\t\t\tTop position of stack ");
+// 	ft_putstr((flag) ? "A:\t" : "B:\t");
+// 	if ((stack->counter_a == 0  && flag) || (stack->counter_b == 0 && !flag))
+// 		num = ft_bidlen(arr);
+// 	else
+// 		num = ft_bidlen(arr) - ((flag) ? stack->counter_a : stack->counter_b);
+// 	ft_putnbrendl(num);
+// 	ft_free_bidarr(arr, ft_bidlen(arr));
+// }
 
-void		ft_check_elems(t_checker *stack, bool flag)
+void		ft_check_elems(t_stack *stack, bool flag)
 {
 	ft_putstr("\t\t\t\tAmount of elems in stack ");
 	ft_putstr((flag) ? "A: " : "B: ");
-	ft_putnbrendl(stack->((flag) ? counter_a : counter_b));
+	ft_putnbrendl(((flag) ? stack->counter_a : stack->counter_b));
 }
