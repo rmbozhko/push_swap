@@ -1,8 +1,21 @@
 #include "push_swap.h"
 
-static inline bool		ft_is_greater(int a, int b)
+static inline bool		ft_is_greater(const int a, const int b)
 {
 	return ((a > b) ? true : false);
+}
+
+static inline size_t		ft_choose_pivot(const int elem_nums)
+{
+	int		pivot;
+	
+	pivot = 0;
+	if (elem_nums > 2)
+	{
+		pivot = 1 + elem_nums + int(elem_nums / 2);
+		pivot = int( pivot / 3 );
+	}
+	return (pivot);
 }
 
 void		ft_handle_two_elems(t_stack *stack, t_sh *shared)
