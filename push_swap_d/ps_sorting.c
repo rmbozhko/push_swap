@@ -1,8 +1,47 @@
 #include "push_swap.h"
 
-static inline bool		ft_is_greater(const int a, const int b)
+static inline bool		ft_is_greater(const int a, const int b) // delete if necessary
 {
 	return ((a > b) ? true : false);
+}
+
+static size_t			ft_find_smallest(const int const* arr, const size_t arr_size)
+{
+	int		sml;
+	size_t		i;
+	
+	i = 0;
+	if (arr)
+	{
+		sml = arr[i];
+		while (i < arr_size)
+		{
+			sml = (arr[i] < sml) ? arr[i] : sml;
+			i++;
+		}
+		return (i);
+	}
+	else
+		exit(-1); // handle as error
+	
+}
+
+static void			ft_handle_more_elems(t_stack* stack)
+{
+	size_t		pos;
+
+	while (!ft_is_sorted(stack->stack_a))
+	{
+		pos = ft_find_smallest(stack->stack_a, stack->counter_a);
+		if (pos == 0)
+			ft_handle_instrs_p(stack, "pb");
+		else if ((int)(stack->counter_a / 2) < pos)
+			ft_handle_instrs_r(stack, "rra");
+		else
+			ft_handle_instrs_r(stack, "ra");
+	}
+	while (stack->counter_b > 0)
+		ft_handle_instrs_p(stack, "pa");
 }
 
 static void			ft_handle_three_elems(t_stack *stack)
@@ -34,7 +73,7 @@ static inline size_t		ft_choose_pivot(const int arr_size)
 	return (res);
 }
 
-void		ft_handle_two_elems(t_stack *stack)
+void		ft_handle_two_elems(t_stack *stack) // delete if necessary
 {
 	if (ft_is_greater(stack->stack_a[0], stack->stack_a[1]))
 		ft_handle_instrs_p(stack, "pa");
@@ -48,7 +87,7 @@ void		ft_sort_stack(t_stack *stack, t_sh *shared)
 	else if (stack->counter_a == 3)
 		ft_handle_three_elems(stack);
 	else
-		printf("Num of elems is greater than 2\n");
+		ft_handle_more_elems(stack);
 	
 	if (ft_is_sorted(stack->stack_a, stack->counter_a))
 		ft_output(3, shared);
