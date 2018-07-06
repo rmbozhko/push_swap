@@ -32,13 +32,18 @@ static void			ft_handle_more_elems(t_stack* stack)
 
 	while (!ft_is_sorted(stack->stack_a))
 	{
-		pos = ft_find_smallest(stack->stack_a, stack->counter_a);
-		if (pos == 0)
-			ft_handle_instrs_p(stack, "pb");
-		else if ((int)(stack->counter_a / 2) < pos)
-			ft_handle_instrs_r(stack, "rra");
+		if (stack->counter_a == 3)
+			ft_handle_three_elems(stack); // firstly try out previous commit without 3 elems handling
 		else
-			ft_handle_instrs_r(stack, "ra");
+		{
+			pos = ft_find_smallest(stack->stack_a, stack->counter_a);
+			if (pos == 0)
+				ft_handle_instrs_p(stack, "pb");
+			else if ((int)(stack->counter_a / 2) < pos)
+				ft_handle_instrs_r(stack, "rra");
+			else
+				ft_handle_instrs_r(stack, "ra");
+		}
 	}
 	while (stack->counter_b > 0)
 		ft_handle_instrs_p(stack, "pa");
