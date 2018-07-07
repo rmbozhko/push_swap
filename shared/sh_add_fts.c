@@ -76,7 +76,6 @@ char		*ft_get_color(char **arr)
 
 	i = 0;
 	temp = WHITE;
-	ft_putbidstr(arr);
 	while (arr[i])
 	{
 		if (!ft_strcmp(arr[i], BONUS_COLOR) && arr[i + 1] != NULL)
@@ -109,9 +108,11 @@ char		*ft_validate_args(char *str, t_sh *shared)
 void		ft_initialization(t_stack *stack, char *args)
 {
 	size_t			i;
+	size_t			j;
 	char 			**arr;
 
 	i = 0;
+	j = i;
 	arr = ft_strsplit(args, ' ');
 	stack->stack_a = (int*)malloc(sizeof(int) * ft_bidlen(arr));
 	ft_bzero(stack->stack_a, sizeof(int*));
@@ -122,9 +123,10 @@ void		ft_initialization(t_stack *stack, char *args)
 	while (i < stack->counter_a)
 	{
 		if (!ft_is_bonus_flag(arr, i))
-			stack->stack_a[i] = ft_atoi_base(arr[i], 10);
+			stack->stack_a[j++] = ft_atoi_base(arr[i], 10);
 		i++;
 	}
+	stack->counter_a = j;
 	ft_free_bidarr(arr, stack->counter_a);
 }
 
@@ -144,7 +146,7 @@ void		ft_output(int flag, t_sh *shared)
 	}
 	else if (flag == 3)
 	{
-		ft_putendl_fd("OK", shared->in_fd);
+		ft_putendl_fd("OK", shared->out_fd);
 	}
 	ft_putstr_fd(RESET, fd);
 	exit((flag == 1) ? 1 : 0);

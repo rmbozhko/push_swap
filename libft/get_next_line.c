@@ -67,7 +67,6 @@ int				get_next_line(const int fd, char **line, char *str)
 		(bytes < BUFF_SIZE) ? buff[bytes] = '\0' : 0;
 		temp = ft_strjoin(temp, buff);
 		str = temp;
-		ft_putendl(temp);
 		if (ft_strlen(temp) > 0)
 		{
 			if ((NL_CODE) || (!NL_CODE && ft_strlen(buff) == 0))
@@ -79,9 +78,7 @@ int				get_next_line(const int fd, char **line, char *str)
 			return (1);
 		}
 		else if (bytes == 0)
-		{
 			break ;
-		}
 	}
 	ft_strdel(&str);
 	return (0);

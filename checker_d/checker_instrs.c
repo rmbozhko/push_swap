@@ -8,11 +8,11 @@ void		ft_handle_file_instrs(char **input, t_stack *stack, t_sh *sh)
 	while (input[i])
 	{
 		if (input[i][0] == 's')
-			ft_handle_instrs_s(stack, input[i]);
+			ft_handle_instrs_s(stack, input[i], false);
 		else if (input[i][0] == 'p')
-			ft_handle_instrs_p(stack, input[i]);
+			ft_handle_instrs_p(stack, input[i], false);
 		else if (input[i][0] == 'r')
-			ft_handle_instrs_r(stack, input[i]);
+			ft_handle_instrs_r(stack, input[i], false);
 		i++;
 		if (input[i] != NULL)
 		{
@@ -25,27 +25,13 @@ void		ft_handle_file_instrs(char **input, t_stack *stack, t_sh *sh)
 	}
 }
 
-void		ft_handle_instrs(t_stack *stack, char *line)
+void		ft_handle_instrs(t_stack *stack, const char *line)
 {
-#ifdef DEBUG
-	printf("Stack A after %s instr.\n", line);
-	ft_print_iarr(stack->stack_a, stack->counter_a);
-	printf("Stack B after %s instr.\n", line);
-	ft_print_iarr(stack->stack_b, stack->counter_b);
-	printf("______----------------------__________________\n");
-#endif	
 	if (line[0] == 's')
-		ft_handle_instrs_s(stack, line);
+		ft_handle_instrs_s(stack, line, false);
 	else if (line[0] == 'p')
-		ft_handle_instrs_p(stack, line);
+		ft_handle_instrs_p(stack, line, false);
 	else if (line[0] == 'r')
-		ft_handle_instrs_r(stack, line);
-#ifdef DEBUG
-	printf("Stack A after %s instr.\n", line);
-	ft_print_iarr(stack->stack_a, stack->counter_a);
-	printf("Stack B after %s instr.\n", line);
-	ft_print_iarr(stack->stack_b, stack->counter_b);
-	printf("______----------------------__________________\n");
-#endif	
+		ft_handle_instrs_r(stack, line, false);
 }
 

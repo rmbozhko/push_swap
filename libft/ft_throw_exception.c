@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void		ft_throw_exception(char *str)
+void		ft_throw_exception(const char *str)
 {
 	ft_putendl_fd(str, 2);
 	exit(1);

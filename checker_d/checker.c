@@ -33,7 +33,7 @@ int			main(int ac, char const **av)
 			args = NULL;
 			(av)++;
 			shared.in_fd = 0;
-			shared.out_fd = 0;
+			shared.out_fd = 1;
 			shared.color = WHITE;
 			args = ft_validate_args(ft_bidarrjoin((char**)av,
 				ft_bidlen((char**)av)), &shared);

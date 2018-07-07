@@ -122,10 +122,10 @@ char			*ft_strip(char *str);
 char			**ft_read_file(const int fd, char **arr);
 void			ft_putnbrendl_fd(int num, int fd);
 void			ft_putnbrendl(int num);
-void			ft_throw_exception(char *str);
+void			ft_throw_exception(const char *str);
 bool			ft_is_int(char *str);
 char			*ft_bidarrjoin(char **arr, size_t len);
 size_t			ft_omit_whitespaces(char *str, size_t i);
-bool			ft_is_sorted(int *arr, size_t len);
+bool			ft_is_sorted(const int *arr, const size_t len);
 int				get_next_line(const int fd, char **line, char *str);
 #endif

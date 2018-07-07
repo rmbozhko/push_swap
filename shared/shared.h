@@ -40,7 +40,6 @@ size_t		ft_check_are_digits(char **arr);
 size_t		ft_check_are_ints(char **arr);
 size_t		ft_check_are_duplicates(char **arr);
 
-bool		ft_is_sorted(int *arr, size_t len);
 size_t		ft_bid_strlen(char **arr);
 char		*ft_handle_colors(char *str);
 char		*ft_get_color(char **arr);
@@ -56,7 +55,7 @@ void		ft_output(int flag, t_sh *shared);
 char		*ft_validate_args(char *str, t_sh *shared);
 int 		ft_get_fd(t_sh *shared, char **arr);
 
-void		ft_handle_instrs_s(t_stack *stack, char *str);
-void		ft_handle_instrs_p(t_stack *stack, char *str);
-void		ft_handle_instrs_r(t_stack *stack, char *str);
+void		ft_handle_instrs_s(t_stack *stack, const char *str, bool print_instr);
+void		ft_handle_instrs_p(t_stack *stack, const char *str, bool print_instr);
+void		ft_handle_instrs_r(t_stack *stack, const char *str, bool print_instr);
 #endif
