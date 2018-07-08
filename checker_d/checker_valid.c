@@ -77,7 +77,10 @@ void		ft_validate_instrs(t_stack *stack, t_sh *shared)
 			ft_output(1, shared);
 		}
 		else
+		{
 			ft_handle_instrs(stack, line);
+			ft_strdel(&line);
+		}
 	}
 	if (status == -1)
 		ft_throw_exception("During stdin reading error occured.");

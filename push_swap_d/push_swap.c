@@ -25,8 +25,8 @@ int		main(int ac, char const *av[])
 				ft_sort_stack(&stack, &shared);
 			}
 		}
-		else
-			ft_output(1, &shared);
 	}
+	else
+		ft_throw_exception("No data is passed");
 	return (0);
 }
