@@ -2,7 +2,7 @@ NAME = push_swap
 CC = gcc
 SHARED = ../shared
 
-SRC = push_swap.c ps_sorting.c
+SRC = push_swap.c ps_sorting.c ps_quicksort.c
 
 OBJ = $(SRC:.c=.o)
 DEBUG = #-DDEBUG

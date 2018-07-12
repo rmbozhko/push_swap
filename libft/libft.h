@@ -115,6 +115,8 @@ void			ft_countdown(int end);
 int				ft_bid_findstr(char *room, char **temp);
 char			**ft_create_bid_arr(size_t size, char *str);
 size_t			ft_count_char(char *str, char c);
+size_t			ft_find_smallest(const int* arr, const size_t arr_size);
+size_t			ft_find_biggest(const int* arr, const size_t arr_size);
 void			ft_free_bidarr(char **arr, size_t len);
 char			*ft_lstrip(char *str);
 char			*ft_rstrip(char *str);
