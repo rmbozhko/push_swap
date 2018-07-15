@@ -17,7 +17,12 @@ size_t			ft_bidlen(char **arr)
 	size_t		i;
 
 	i = 0;
-	while (arr[i])
-		i++;
+	if (arr)
+	{
+		while (arr[i])
+			i++;
+	}
+	else
+		ft_throw_exception("ft_bidlen: Passed bi-dimensional array is NULL");
 	return (i);
 }

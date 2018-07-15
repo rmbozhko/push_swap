@@ -34,7 +34,7 @@ SRC = ft_atoi.c ft_bzero.c ft_is_whitespace.c ft_isalnum.c ft_isalpha.c \
 	  ft_read_file.c ft_skip_whitespaces.c ft_reverse_str.c ft_putnbrendl.c \
 	  ft_putnbrendl_fd.c ft_is_int.c ft_throw_exception.c ft_print_iarr.c \
 	  ft_bidarrjoin.c ft_omit_whitespaces.c ft_is_sorted.c get_next_line.c \
-	  ft_find_biggest.c ft_find_smallest.c
+	  ft_find_biggest.c ft_find_smallest.c ft_abs.c
 
 OBJ = $(SRC:.c=.o)
 

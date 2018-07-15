@@ -16,6 +16,6 @@ size_t			ft_find_biggest(const int* arr, const size_t arr_size)
 		}
 	}
 	else
-		ft_throw_exception("Wrong array format");
+		ft_throw_exception("ft_find_biggest: Wrong array format");
 	return (sml);
 }

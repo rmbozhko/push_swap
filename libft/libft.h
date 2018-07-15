@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <limits.h>
 
 # define MEMORY_COEF 5
 # define BUFF_SIZE 1
@@ -39,6 +40,7 @@ typedef	struct	s_node
 	struct s_node	*next;
 }				t_node;
 
+size_t			ft_abs(const int n);
 void			ft_print_iarr(int *arr, size_t len);
 char			*ft_reverse_str(char *str);
 int				ft_skip_whitespaces(char *str, int i);
@@ -107,7 +109,7 @@ char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int				ft_strnequ(char const *s1, char const *s2, size_t n);
 int				ft_strequ(char const *s1, char const *s2);
 char			*ft_strnew(size_t size);
-int				ft_is_numeric(char *str);
+int				ft_is_numeric(const char *str);
 void			ft_putbidstr(char **arr);
 size_t			ft_bidlen(char **arr);
 intmax_t		ft_atoi_base(char *str, int base);
@@ -125,9 +127,9 @@ char			**ft_read_file(const int fd, char **arr);
 void			ft_putnbrendl_fd(int num, int fd);
 void			ft_putnbrendl(int num);
 void			ft_throw_exception(const char *str);
-bool			ft_is_int(char *str);
+bool			ft_is_int(const char *str);
 char			*ft_bidarrjoin(char **arr, size_t len);
-size_t			ft_omit_whitespaces(char *str, size_t i);
+size_t			ft_omit_whitespaces(const char *str, size_t i);
 bool			ft_is_sorted(const int *arr, const size_t len);
 int				get_next_line(const int fd, char **line, char *str);
 #endif

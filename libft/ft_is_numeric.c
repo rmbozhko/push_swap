@@ -12,24 +12,29 @@
 
 #include "libft.h"
 
-int			ft_is_numeric(char *str)
+int			ft_is_numeric(const char *str)
 {
 	size_t		i;
 	size_t		sign;
 
 	i = 0;
 	sign = 0;
-	if (str[i] == '-' || str[i] == '+')
+	if (str && ft_strlen(str))
 	{
-		sign = 1;
-		i++;
+		if (str[i] == '-' || str[i] == '+')
+		{
+			sign = 1;
+			i++;
+		}
+		while (str[i])
+		{
+			if (!ft_isdigit(str[i]))
+				return (0);
+			i++;
+		}
 	}
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
-		i++;
-	}
+	else
+		ft_throw_exception("ft_is_numeric: Passed string is NULL or zero length");
 	if (sign == 1)
 		return ((i > 1) ? 1 : 0);
 	else

@@ -12,13 +12,17 @@
 
 #include "libft.h"
 
-bool		ft_is_int(char *str)
+bool		ft_is_int(const char *str)
 {
 	intmax_t		num;
 
-	num = ft_atoi_base(str, 10);
-	if (num >= -2147483648 && num <= 2147483647)
-		return (true);
+	if (str && ft_strlen(str))
+	{
+		num = ft_atoi_base((char*)str, 10);
+		if (num >= -2147483648 && num <= 2147483647)
+			return (true);
+	}
 	else
-		return (false);
+		ft_throw_exception("ft_is_int: Passed string is NULL or zero length");
+	return (false);
 }
