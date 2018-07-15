@@ -1,24 +1,5 @@
 #include "push_swap.h"
 
-size_t						ft_abs(const int n)
-{
-	return ((n < 0) ? -n : n );
-}
-
-static inline size_t		ft_choose_pivot(const int arr_size)
-{
-	time_t		t;
-	size_t		res;
-	
-	/* Intializes random number generator */
-	srand((unsigned) time(&t));
-	
-	/* Get random pivot from 0 to arr_size - 1 */
-	res = (rand() % arr_size);
-	
-	return (res);
-}
-
 size_t			ft_get_pivot(const int* arr, const size_t len) // test with negative elements in arr
 {
 	size_t		j;
@@ -44,111 +25,64 @@ size_t			ft_get_pivot(const int* arr, const size_t len) // test with negative el
 		}
 	}
 	else
+	{
+		printf("LEN:%zu\n", len);
 		ft_throw_exception("Wrong array format");
+	}
 	return (j);
 }
 
-void			ft_quicksort(t_stack* stack, const size_t len)
+void			ft_sort_stack_a(t_stack* stack, const size_t len)
 {
-	int			pivot;
-	size_t		i;
-	size_t		j;
+	size_t			i;
+	int 			pivot;
 
-	if (len == 1)
-		return ;
-	pivot = stack->stack_a[ft_get_pivot(stack->stack_a, len)];
 	i = 0;
-	j = 0;
-	#ifdef DEBUG
-		printf("pivot: %d\n", pivot);
-		printf("Before stacks splitting\n");
-	    printf("Stack A:\n");
-	    ft_print_iarr(stack->stack_a, stack->counter_a);
-	#endif
-
+	pivot = stack->stack_a[ft_get_pivot(stack->stack_a, len)];
 	while (i < len)
 	{
-		#ifdef DEBUG
-			printf("elem in stack A: %d\n", stack->stack_a[i]);
-		#endif
-		if (stack->stack_a[0] > pivot)
+		if (stack->stack_a[i] < pivot)
 			ft_handle_instrs_p(stack, "pb", true);
 		else
 			ft_handle_instrs_r(stack, "ra", true);
 		i++;
 	}
-	#ifdef DEBUG
-	printf("After stacks splitting\n");
-	printf("Stack A:\n");
-	ft_print_iarr(stack->stack_a, stack->counter_a);
+	// do i really need rra?? why?
+	// while (i > (len - stack->counter_a))
+		// ft_handle_instrs_r(stack, "rra", true);
+}
 
-	printf("Stack B:\n");
-	ft_print_iarr(stack->stack_b, stack->counter_b);
-	#endif
+void			ft_sort_stack_b(t_stack* stack, const size_t len)
+{
+	size_t			i;
+	int 			pivot;
 
 	i = 0;
-    //reverse the list back to original position
-    while (i < (len - stack->counter_b)) // no need
-    {
-    	ft_handle_instrs_r(stack, "rra", true);
-    	i++;
-    }
+	pivot = stack->stack_b[ft_get_pivot(stack->stack_b, len)];
+	while (i < len)
+	{
+		if (stack->stack_b[i] < pivot)
+			ft_handle_instrs_p(stack, "pa", true);
+		else
+			ft_handle_instrs_r(stack, "rb", true);
+		i++;
+	}
+	// do i really need rra?? why?
+	// while (i > (len - stack->counter_b))
+		// ft_handle_instrs_r(stack, "rrb", true);
+}
 
-    //push larger half onto smaller half
-    i = stack->counter_b;
-    while (stack->counter_b != 0)
-    	ft_handle_instrs_p(stack, "pa", true);
-    #ifdef DEBUG
-	    printf("Before 1-st rec call\n");
-	    printf("Stack A:\n");
-		ft_print_iarr(stack->stack_a, stack->counter_a);
-
-		printf("Stack B:\n");
-		ft_print_iarr(stack->stack_b, stack->counter_b);
-		printf("I is LEN for 1-st ft_quicksort call: %zu\n", i);
-    #endif
-    //recursively call this on the larger half
-    ft_quicksort(stack, i);
-    #ifdef DEBUG
-	    printf("After 1-st rec call\n");
-	    printf("Stack A:\n");
-		ft_print_iarr(stack->stack_a, stack->counter_a);
-
-		printf("Stack B:\n");
-		ft_print_iarr(stack->stack_b, stack->counter_b);
-	#endif
-
-    //rotate smaller half to front
-    while (j < i)
-    {
-    	ft_handle_instrs_r(stack, "ra", true);
-    	j++;
-    }
-
-    #ifdef DEBUG
-    printf("Before 1-st rec call\n");
-    printf("Stack A:\n");
-	ft_print_iarr(stack->stack_a, stack->counter_a);
-
-	printf("Stack B:\n");
-	ft_print_iarr(stack->stack_b, stack->counter_b);
-	printf("I is LEN for 2-nd ft_quicksort call: %zu\n", len - i);
-	#endif
-    //recursively call this on smaller half
-    ft_quicksort(stack, len - i);
-
-    //reverse list back to original position
-    while (j != 0)
-    {
-    	ft_handle_instrs_r(stack, "rra", true);
-    	j--;
-    }
-    #ifdef DEBUG
-    printf("At the very end\n");
-    printf("Stack A:\n");
-	ft_print_iarr(stack->stack_a, stack->counter_a);
-
-	printf("Stack B:\n");
-	ft_print_iarr(stack->stack_b, stack->counter_b);
-	#endif
+void			ft_quicksort(t_stack* stack, const size_t len, bool STACK_A)
+{
+	if (len <= 2) // base case
+	{
+		if (len == 2)
+			(STACK_A) ? ft_handle_two_elems(stack, true) : ft_handle_two_elems(stack, false);
+		while (!STACK_A && stack->counter_b)
+			ft_handle_instrs_p(stack, "pa", true);
+		return ;
+	}
+	(STACK_A) ? ft_sort_stack_a(stack, len) : ft_sort_stack_b(stack, len);
+	ft_quicksort(stack, len / 2 + len % 2, true);
+	ft_quicksort(stack, len / 2, false);
 }
