@@ -5,9 +5,13 @@
 # include <stdio.h>
 
 # define INSTRS_NUM 11
+# define SPACE_BETWEEN_STACKS 5
 
+# define BONUS_BUBBLE "-bubble"
+# define BONUS_INSERT "-insert"
+# define BONUS_QUICK "-quick"
 # define BONUS_COLOR "-c"
-# define BONUS_INFO "-i"
+# define BONUS_HELP "-h"
 # define BONUS_IF_FD "-istream" // file to read from
 # define BONUS_OF_FD "-ostream" // file to write in
 
@@ -21,11 +25,20 @@
 # define WHITE "\033[0;37m"
 # define RESET "\033[0m"
 
+typedef enum ALGO
+{
+	BUBBLE=0,
+	INSERT,
+	QUICK
+} T_ALGO;
+
 typedef	struct 	s_sh
 {
 	int 		in_fd;
 	int 		out_fd;
 	char		*color;
+	T_ALGO		algo;
+	bool 		print_help;
 }				t_sh;
 
 typedef	struct 	s_stack
@@ -36,14 +49,16 @@ typedef	struct 	s_stack
 	size_t		counter_b;
 }				t_stack;
 
-size_t		ft_check_are_digits(char **arr);
-size_t		ft_check_are_ints(char **arr);
-size_t		ft_check_are_duplicates(char **arr);
+void		ft_print_stacks(const t_stack* stack, const t_sh* shared);
 
-size_t		ft_bid_strlen(char **arr);
-char		*ft_handle_colors(char *str);
-char		*ft_get_color(char **arr);
-bool 		ft_is_bonus_flag(char **arr, size_t i);
+size_t		ft_check_are_digits(const char **arr);
+size_t		ft_check_are_ints(const char **arr);
+size_t		ft_check_are_duplicates(const char **arr);
+
+size_t		ft_bid_strlen(const char **arr);
+char		*ft_handle_colors(const char *str);
+char		*ft_get_color(const char **arr);
+bool 		ft_is_bonus_flag(const char **arr, size_t i);
 
 void		ft_rev_rotate_ints(int *arr, size_t len);
 void		ft_rotate_ints(int *arr, size_t len);
@@ -53,7 +68,7 @@ void		ft_swap_ints(int *arr, size_t pos);
 void		ft_initialization(t_stack *stack, char *args);
 void		ft_output(int flag, t_sh *shared);
 char		*ft_validate_args(char *str, t_sh *shared);
-int 		ft_get_fd(t_sh *shared, char **arr);
+int 		ft_get_fd(t_sh *shared, const char **arr);
 
 void		ft_handle_instrs_s(t_stack *stack, const char *str, bool print_instr);
 void		ft_handle_instrs_p(t_stack *stack, const char *str, bool print_instr);

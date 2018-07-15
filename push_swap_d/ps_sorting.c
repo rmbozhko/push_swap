@@ -18,7 +18,33 @@ static void			ft_handle_three_elems(t_stack *stack)
 	}
 }
 
-static void			ft_plain_sort(t_stack* stack)
+static void			ft_bubble_sort(t_stack* stack)
+{
+	size_t		i;
+	size_t		j;
+
+	i = 0;
+	while (!ft_is_sorted(stack->stack_a, stack->counter_a)
+			&& i < stack->counter_a)
+	{
+		j = 0;
+		while (j < stack->counter_a - 1)
+		{
+			if (stack->stack_a[0] > stack->stack_a[1])
+			{
+				ft_handle_instrs_s(stack, "sa", true);
+				ft_handle_instrs_r(stack, "ra", true);
+			}
+			else
+				ft_handle_instrs_r(stack, "ra", true);
+			j++;
+		}
+		ft_handle_instrs_r(stack, "ra", true);
+		i++;
+	}
+}
+
+static void			ft_insertion_sort(t_stack* stack)
 {
 	size_t		pos;
 
@@ -46,21 +72,28 @@ static void			ft_plain_sort(t_stack* stack)
 		ft_handle_instrs_p(stack, "pa", true);
 }
 
+inline void		ft_handle_two_elems(t_stack* stack, bool STACK_A)
+{
+	if (STACK_A && stack->stack_a[0] > stack->stack_a[1])
+		ft_handle_instrs_s(stack, "sa", true);
+	else if (!STACK_A && stack->stack_b[0] > stack->stack_b[1])
+		ft_handle_instrs_s(stack, "sa", true);
+}
+
 void		ft_sort_stack(t_stack *stack, t_sh *shared)
 {
-	bool qs = true;
-	if (qs)
-	{
-		#define DEBUG
-	}
+	bool qs = false;
 	if (stack->counter_a == 2)
-	{
-		if (stack->stack_a[0] > stack->stack_a[1])
-			ft_handle_instrs_p(stack, "pa", true);
-	}
+		ft_handle_two_elems(stack, true);
 	else if (stack->counter_a == 3)
 		ft_handle_three_elems(stack);
 	else
-		(qs) ? ft_quicksort(stack, stack->counter_a) : ft_plain_sort(stack);
-	(qs) ? ft_print_iarr(stack->stack_a, stack->counter_a) : 0;
+	{
+		if (shared->algo == BUBBLE)
+			ft_bubble_sort(stack);
+		else if (shared->algo == INSERT)
+			ft_insertion_sort(stack);
+		else
+			ft_quicksort(stack, stack->counter_a, true);
+	}
 }

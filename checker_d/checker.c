@@ -28,7 +28,7 @@ int			main(int ac, char const **av)
 
 	if ((ac > 1))
 	{
-		if (ft_bid_strlen(((char**)av) + 1) > 0)
+		if (ft_bid_strlen(av + 1) > 0)
 		{
 			args = NULL;
 			(av)++;

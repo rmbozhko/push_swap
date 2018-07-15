@@ -1,20 +1,24 @@
 #include "shared.h"
 
-bool 		ft_is_bonus_flag(char **arr, size_t i)
+bool 		ft_is_bonus_flag(const char **arr, size_t i)
 {
-	if (!ft_strcmp(arr[i], BONUS_COLOR) || !ft_strcmp(arr[i], BONUS_INFO)
-		|| !ft_strcmp(arr[i], BONUS_IF_FD) || !ft_strcmp(arr[i], BONUS_OF_FD))
+	if (!ft_strcmp(arr[i], BONUS_COLOR) || !ft_strcmp(arr[i], BONUS_HELP)
+		|| !ft_strcmp(arr[i], BONUS_IF_FD) || !ft_strcmp(arr[i], BONUS_OF_FD)
+		 || !ft_strcmp(arr[i], BONUS_BUBBLE) || !ft_strcmp(arr[i], BONUS_INSERT)
+		 || !ft_strcmp(arr[i], BONUS_QUICK))
 		return (true);
 	else if (i != 0)
 	{
-		if (!ft_strcmp(arr[i - 1], BONUS_COLOR) || !ft_strcmp(arr[i - 1], BONUS_INFO)
-			|| !ft_strcmp(arr[i - 1], BONUS_IF_FD) || !ft_strcmp(arr[i - 1], BONUS_OF_FD))
+		if (!ft_strcmp(arr[i - 1], BONUS_COLOR) || !ft_strcmp(arr[i - 1], BONUS_HELP)
+			|| !ft_strcmp(arr[i - 1], BONUS_IF_FD) || !ft_strcmp(arr[i - 1], BONUS_OF_FD)
+			|| !ft_strcmp(arr[i], BONUS_BUBBLE) || !ft_strcmp(arr[i], BONUS_INSERT)
+			|| !ft_strcmp(arr[i], BONUS_QUICK))
 			return (true);
 	}
 	return (false);
 }
 
-size_t		ft_check_are_digits(char **arr)
+size_t		ft_check_are_digits(const char **arr)
 {
 	size_t		i;
 
@@ -31,7 +35,7 @@ size_t		ft_check_are_digits(char **arr)
 	return (0);
 }
 
-size_t		ft_check_are_ints(char **arr)
+size_t		ft_check_are_ints(const char **arr)
 {
 	size_t		i;
 
@@ -48,7 +52,7 @@ size_t		ft_check_are_ints(char **arr)
 	return (0);
 }
 
-size_t		ft_check_are_duplicates(char **arr)
+size_t		ft_check_are_duplicates(const char **arr)
 {
 	size_t		i;
 	size_t		j;
