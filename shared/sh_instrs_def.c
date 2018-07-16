@@ -92,14 +92,13 @@ void		ft_push_int(int *arr1, int *arr2, size_t *pos1, size_t *pos2)
 void		ft_rotate_ints(int *arr, size_t len)
 {
 	int 		num;
-	int 		temp;
 	size_t		i;
 
 	if (len > 0)
 	{
 		i = 0;
 		num = arr[i];
-		while (arr[i])
+		while (i < len)
 		{
 			if (i + 1 != len)
 				arr[i] = arr[i + 1];

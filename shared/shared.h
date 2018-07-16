@@ -12,6 +12,7 @@
 # define BONUS_QUICK "-quick"
 # define BONUS_COLOR "-c"
 # define BONUS_HELP "-h"
+# define BONUS_DISPLAY "-d"
 # define BONUS_IF_FD "-istream" // file to read from
 # define BONUS_OF_FD "-ostream" // file to write in
 
@@ -39,6 +40,7 @@ typedef	struct 	s_sh
 	char		*color;
 	T_ALGO		algo;
 	bool 		print_help;
+	bool 		display_stacks;
 }				t_sh;
 
 typedef	struct 	s_stack

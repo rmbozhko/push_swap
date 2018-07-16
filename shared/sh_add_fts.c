@@ -107,6 +107,25 @@ bool 		ft_need_help(const char **arr)
 	return (need_help);
 }
 
+bool 		ft_display_stacks(const char **arr)
+{
+	size_t		i;
+	bool 		display_stacks;
+
+	i = 0;
+	display_stacks = false;
+	while (arr[i])
+	{
+		if (!ft_strcmp(arr[i], BONUS_DISPLAY))
+		{
+			display_stacks = true;
+			break ;
+		}
+		i++;
+	}
+	return (display_stacks);
+}
+
 T_ALGO 		ft_get_algo(const char **arr)
 {
 	size_t		i;
@@ -141,6 +160,7 @@ char		*ft_validate_args(char *str, t_sh *shared)
 		errors++;
 	shared->print_help = ft_need_help(arr);
 	shared->algo = ft_get_algo(arr);
+	shared->display_stacks = ft_display_stacks(arr);
 	ft_free_bidarr((char**)arr, ft_bidlen((char**)arr));
 	return ((errors) ? NULL : str);
 }

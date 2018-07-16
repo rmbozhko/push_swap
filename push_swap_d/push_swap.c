@@ -6,6 +6,8 @@ void		ft_print_help(t_sh* shared)
 	ft_putstr_fd("\tFLAGS can be following (multiple at once possible): \n\t", shared->out_fd);
 	ft_putstr_fd(BONUS_HELP, shared->out_fd);
 	ft_putstr_fd(" -- Get the help of using program\n\t", shared->out_fd);
+	ft_putstr_fd(BONUS_DISPLAY, shared->out_fd);
+	ft_putstr_fd(" -- Display both stacks\n\t", shared->out_fd);
 	ft_putstr_fd(BONUS_COLOR, shared->out_fd);
 	ft_putendl_fd(" -- Change color of output", shared->out_fd);
 	ft_putstr_fd("\t\t[BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN and default, WHITE]\n\t", shared->out_fd);
@@ -41,6 +43,7 @@ int			main(int ac, char const *av[])
 			shared.color = WHITE;
 			shared.algo = QUICK;
 			shared.print_help = false;
+			shared.display_stacks = false;
 			args = ft_validate_args(ft_bidarrjoin((char**)av,
 				ft_bidlen((char**)av)), &shared);
 			if (shared.print_help)
@@ -50,7 +53,7 @@ int			main(int ac, char const *av[])
 			else
 			{
 				ft_initialization(&stack, args);
-				ft_print_stacks(&stack, &shared);
+				(shared.display_stacks) ? ft_print_stacks(&stack, &shared) : 0;
 				ft_sort_stack(&stack, &shared);
 			}
 		}

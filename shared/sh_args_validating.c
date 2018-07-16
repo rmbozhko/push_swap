@@ -5,14 +5,14 @@ bool 		ft_is_bonus_flag(const char **arr, size_t i)
 	if (!ft_strcmp(arr[i], BONUS_COLOR) || !ft_strcmp(arr[i], BONUS_HELP)
 		|| !ft_strcmp(arr[i], BONUS_IF_FD) || !ft_strcmp(arr[i], BONUS_OF_FD)
 		 || !ft_strcmp(arr[i], BONUS_BUBBLE) || !ft_strcmp(arr[i], BONUS_INSERT)
-		 || !ft_strcmp(arr[i], BONUS_QUICK))
+		 || !ft_strcmp(arr[i], BONUS_QUICK) || !ft_strcmp(arr[i], BONUS_DISPLAY))
 		return (true);
 	else if (i != 0)
 	{
 		if (!ft_strcmp(arr[i - 1], BONUS_COLOR) || !ft_strcmp(arr[i - 1], BONUS_HELP)
 			|| !ft_strcmp(arr[i - 1], BONUS_IF_FD) || !ft_strcmp(arr[i - 1], BONUS_OF_FD)
 			|| !ft_strcmp(arr[i], BONUS_BUBBLE) || !ft_strcmp(arr[i], BONUS_INSERT)
-			|| !ft_strcmp(arr[i], BONUS_QUICK))
+			|| !ft_strcmp(arr[i], BONUS_QUICK) || !ft_strcmp(arr[i - 1], BONUS_DISPLAY))
 			return (true);
 	}
 	return (false);
