@@ -76,8 +76,8 @@ inline void		ft_handle_two_elems(t_stack* stack, bool STACK_A)
 {
 	if (STACK_A && stack->stack_a[0] > stack->stack_a[1])
 		ft_handle_instrs_s(stack, "sa", true);
-	else if (!STACK_A && stack->stack_b[0] > stack->stack_b[1])
-		ft_handle_instrs_s(stack, "sa", true);
+	else if (!STACK_A && stack->stack_b[0] < stack->stack_b[1])
+		ft_handle_instrs_s(stack, "sb", true);
 }
 
 void		ft_sort_stack(t_stack *stack, t_sh *shared)
