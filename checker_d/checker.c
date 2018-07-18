@@ -1,8 +1,8 @@
 #include "checker.h"
 
-char 		**ft_get_defined_instrs(void)
+char**		ft_get_defined_instrs(void)
 {
-	char 		**arr;
+	char**		arr;
 
 	arr = (char**)malloc((sizeof(char*) * INSTRS_NUM) + 1);
 	arr[0] = ft_strdup("sa");
@@ -17,6 +17,7 @@ char 		**ft_get_defined_instrs(void)
 	arr[9] = ft_strdup("rrb");
 	arr[10] = ft_strdup("rrr");
 	arr[INSTRS_NUM] = NULL;
+
 	return (arr);
 }
 
@@ -30,23 +31,16 @@ int			main(int ac, char const **av)
 	{
 		if (ft_bid_strlen(av + 1) > 0)
 		{
-			args = NULL;
-			(av)++;
-			shared.in_fd = 0;
-			shared.out_fd = 1;
-			shared.color = WHITE;
-			args = ft_validate_args(ft_bidarrjoin((char**)av,
-				ft_bidlen((char**)av)), &shared);
+			args = ft_init_shared(&shared, ++(av), false);
 			if (!args)
 				ft_output(1, &shared);
-			else
-			{
-				ft_initialization(&stack, args);
-				if (!shared.in_fd)
-					ft_validate_instrs(&stack, &shared);
-				else
-					ft_validate_file_instrs(&stack, &shared);
-			}
+			if (shared.print_help)
+				ft_print_help(&shared);
+			if (shared.algo != NONE)
+				ft_throw_exception("There is no algorithms flag for ./checker");
+			ft_initialization(&stack, args);
+			(!shared.in_fd) ? ft_validate_instrs(&stack, &shared) : 
+							ft_validate_file_instrs(&stack, &shared);
 		}
 		else
 			ft_output(1, &shared);

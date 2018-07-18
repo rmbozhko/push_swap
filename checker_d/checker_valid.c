@@ -50,7 +50,7 @@ void		ft_validate_file_instrs(t_stack *stack, t_sh *shared)
 
 	i = 0;
 	if ((input = ft_read_file(shared->in_fd, NULL)) == NULL)
-		ft_throw_exception("Failed to read from file.");
+		ft_throw_exception("checker_valid: Failed to read from file.");
 	while (input[i])
 	{
 		if (!ft_find_instr(input[i]))
@@ -61,6 +61,8 @@ void		ft_validate_file_instrs(t_stack *stack, t_sh *shared)
 		i++;
 	}
 	ft_handle_file_instrs(input, stack, shared);
+	((ft_is_sorted(stack->stack_a, stack->counter_a))
+			? ft_output(3, shared) : ft_output(2, shared));
 }
 
 void		ft_validate_instrs(t_stack *stack, t_sh *shared)
@@ -79,6 +81,8 @@ void		ft_validate_instrs(t_stack *stack, t_sh *shared)
 		else
 		{
 			ft_handle_instrs(stack, line);
+			if (shared->display_stacks)
+				ft_print_stacks(stack, shared);
 			ft_strdel(&line);
 		}
 	}

@@ -1,6 +1,6 @@
 #include "shared.h"
 
-void		ft_handle_instrs_s(t_stack *stack, const char *str, bool print_instr)
+void		ft_handle_instrs_s(t_stack *stack, const char *str, bool print_instr, const int fd)
 {
 	if (!ft_strcmp(str, "sa"))
 		ft_swap_ints(stack->stack_a, stack->counter_a);
@@ -11,10 +11,10 @@ void		ft_handle_instrs_s(t_stack *stack, const char *str, bool print_instr)
 		ft_swap_ints(stack->stack_a, stack->counter_a);
 		ft_swap_ints(stack->stack_b, stack->counter_b);
 	}
-	(print_instr) ? ft_putendl(str) : 0;
+	(print_instr) ? ft_putendl_fd(str, fd) : 0;
 }
 
-void		ft_handle_instrs_p(t_stack *stack, const char *str, bool print_instr)
+void		ft_handle_instrs_p(t_stack *stack, const char *str, bool print_instr, const int fd)
 {
 	if (!ft_strcmp(str, "pa"))
 		ft_push_int(stack->stack_a, stack->stack_b,
@@ -22,10 +22,10 @@ void		ft_handle_instrs_p(t_stack *stack, const char *str, bool print_instr)
 	else if (!ft_strcmp(str, "pb"))
 		ft_push_int(stack->stack_b, stack->stack_a,
 				&stack->counter_b, &stack->counter_a);
-	(print_instr) ? ft_putendl(str) : 0;
+	(print_instr) ? ft_putendl_fd(str, fd) : 0;
 }
 
-void		ft_handle_instrs_r(t_stack *stack, const char *str, bool print_instr)
+void		ft_handle_instrs_r(t_stack *stack, const char *str, bool print_instr, const int fd)
 {
 	if (!ft_strcmp(str, "ra"))
 		ft_rotate_ints(stack->stack_a, stack->counter_a);
@@ -45,5 +45,5 @@ void		ft_handle_instrs_r(t_stack *stack, const char *str, bool print_instr)
 		ft_rev_rotate_ints(stack->stack_a, stack->counter_a);
 		ft_rev_rotate_ints(stack->stack_b, stack->counter_b);
 	}
-	(print_instr) ? ft_putendl(str) : 0;
+	(print_instr) ? ft_putendl_fd(str, fd) : 0;
 }

@@ -19,7 +19,7 @@ int 		ft_get_fd(t_sh *shared, const char **arr)
 			}
 			else if ((!ft_strcmp(arr[i], BONUS_OF_FD)))
 			{
-				shared->out_fd = open(arr[i + 1], O_WRONLY | O_CREAT, 0777);
+				shared->out_fd = open(arr[i + 1], O_TRUNC | O_WRONLY | O_CREAT, 0777);
 				fd = shared->out_fd;
 			}
 			if (fd < 0 || fd > 4096)
@@ -132,7 +132,7 @@ T_ALGO 		ft_get_algo(const char **arr)
 	T_ALGO 		algo;
 
 	i = 0;
-	algo = QUICK;
+	algo = NONE;
 	while (arr[i])
 	{
 		if (!ft_strcmp(arr[i], BONUS_BUBBLE))
@@ -146,7 +146,7 @@ T_ALGO 		ft_get_algo(const char **arr)
 	return (algo);
 }
 
-char		*ft_validate_args(char *str, t_sh *shared)
+char*		ft_validate_args(char *str, t_sh *shared)
 {
 	const char 		**arr = (const char**)ft_strsplit(str, ' ');
 	size_t			errors;
@@ -160,9 +160,23 @@ char		*ft_validate_args(char *str, t_sh *shared)
 		errors++;
 	shared->print_help = ft_need_help(arr);
 	shared->algo = ft_get_algo(arr);
+	shared->algo = (shared->ps_st && shared->algo == NONE) ? QUICK : shared->algo;
 	shared->display_stacks = ft_display_stacks(arr);
 	ft_free_bidarr((char**)arr, ft_bidlen((char**)arr));
 	return ((errors) ? NULL : str);
+}
+
+char*		ft_init_shared(t_sh* shared, const char** av, const bool PUSH_SWAP)
+{
+	shared->ps_st = PUSH_SWAP;
+	shared->in_fd = 0;
+	shared->out_fd = 1;
+	shared->color = WHITE;
+	shared->algo = (PUSH_SWAP) ? QUICK : NONE;
+	shared->display_stacks = false;
+	shared->print_help = false;
+	return (ft_validate_args(ft_bidarrjoin((char**)av,
+		ft_bidlen((char**)av)), shared));
 }
 
 void		ft_initialization(t_stack *stack, char *args)
@@ -188,6 +202,9 @@ void		ft_initialization(t_stack *stack, char *args)
 	}
 	stack->counter_a = j;
 	ft_free_bidarr(arr, stack->counter_a);
+	// ft_strdel(&args);
+	if (stack->counter_a == 0)
+		ft_throw_exception("ft_initialization: Stack is empty");
 }
 
 size_t		ft_numlen_sh(int num)
@@ -302,6 +319,35 @@ void		ft_print_stacks(const t_stack* stack, const t_sh* shared)
 	ft_putstr_fd(RESET, shared->out_fd);
 }
 
+void		ft_print_help(const t_sh* shared)
+{
+	ft_putendl_fd("Usage: ./push_swap [FLAGS] INT_SEQUENCE", shared->out_fd);
+	ft_putstr_fd("\tFLAGS: \n\t", shared->out_fd);
+	ft_putstr_fd(BONUS_HELP, shared->out_fd);
+	ft_putstr_fd(" -- Print this help and exits\n\t", shared->out_fd);
+	(!shared->ps_st) ? ft_putstr_fd(BONUS_DISPLAY, shared->out_fd) : 0;
+	(!shared->ps_st) ? ft_putstr_fd(" -- Display both stacks\n\t", shared->out_fd) : 0;
+	ft_putstr_fd(BONUS_COLOR, shared->out_fd);
+	ft_putendl_fd(" -- Change color of output", shared->out_fd);
+	ft_putstr_fd("\t\t[BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN and default, WHITE]\n\t", shared->out_fd);
+	ft_putstr_fd(BONUS_IF_FD, shared->out_fd);
+	ft_putstr_fd(" -- Specify the input source\n\t", shared->out_fd);
+	ft_putstr_fd(BONUS_OF_FD, shared->out_fd);
+	ft_putstr_fd(" -- Specify the output source\n\t", shared->out_fd);
+	(shared->ps_st) ? ft_putstr_fd(BONUS_BUBBLE, shared->out_fd) : 0;
+	(shared->ps_st) ? ft_putstr_fd(" -- Specify the sorting algorithm, currently bubble sort.\n\t", shared->out_fd) : 0;
+	(shared->ps_st) ? ft_putstr_fd(BONUS_INSERT, shared->out_fd) : 0;
+	(shared->ps_st) ? ft_putstr_fd(" -- Specify the sorting algorithm, currently insertion sort.\n\t", shared->out_fd) : 0;
+	(shared->ps_st) ? ft_putstr_fd(BONUS_QUICK, shared->out_fd) : 0;
+	(shared->ps_st) ? ft_putstr_fd(" -- Specify the sorting algorithm, currently quicksort.\n", shared->out_fd) : 0;
+	(shared->ps_st) ? ft_putstr_fd("Specify the sorting algorithm, currently quicksort.\n", shared->out_fd) : 0;
+	ft_putendl_fd("INT_SEQUENCE can be passed as follows: ", shared->out_fd);
+	ft_putendl_fd("INT ... \"INT\" ... INT ... \"INT\" ...", shared->out_fd);
+	ft_putendl_fd((shared->ps_st) ? "INT_SEQUENCE can be passed as a file"
+			: "INT_SEQUENCE must be explicitly specified as command-line argument", shared->out_fd);
+	exit(0);
+}
+
 void		ft_output(int flag, t_sh* shared)
 {
 	int 		fd;
@@ -321,5 +367,6 @@ void		ft_output(int flag, t_sh* shared)
 		ft_putendl_fd("OK", shared->out_fd);
 	}
 	ft_putstr_fd(RESET, fd);
+	// while (1);
 	exit((flag == 1) ? 1 : 0);
 }

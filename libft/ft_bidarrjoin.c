@@ -1,6 +1,6 @@
 #include "libft.h"
 
-char		*ft_bidarrjoin(char **arr, size_t len)
+char		*ft_bidarrjoin(char **arr, const size_t len)
 {
 	char		*temp;
 	char		*str;

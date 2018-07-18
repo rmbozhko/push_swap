@@ -128,7 +128,7 @@ void			ft_putnbrendl_fd(int num, int fd);
 void			ft_putnbrendl(int num);
 void			ft_throw_exception(const char *str);
 bool			ft_is_int(const char *str);
-char			*ft_bidarrjoin(char **arr, size_t len);
+char			*ft_bidarrjoin(char **arr, const size_t len);
 size_t			ft_omit_whitespaces(const char *str, size_t i);
 bool			ft_is_sorted(const int *arr, const size_t len);
 int				get_next_line(const int fd, char **line, char *str);

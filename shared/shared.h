@@ -30,11 +30,13 @@ typedef enum ALGO
 {
 	BUBBLE=0,
 	INSERT,
-	QUICK
+	QUICK,
+	NONE
 } T_ALGO;
 
 typedef	struct 	s_sh
 {
+	bool 		ps_st;
 	int 		in_fd;
 	int 		out_fd;
 	char		*color;
@@ -58,8 +60,8 @@ size_t		ft_check_are_ints(const char **arr);
 size_t		ft_check_are_duplicates(const char **arr);
 
 size_t		ft_bid_strlen(const char **arr);
-char		*ft_handle_colors(const char *str);
-char		*ft_get_color(const char **arr);
+char*		ft_handle_colors(const char *str);
+char*		ft_get_color(const char **arr);
 bool 		ft_is_bonus_flag(const char **arr, size_t i);
 
 void		ft_rev_rotate_ints(int *arr, size_t len);
@@ -67,12 +69,14 @@ void		ft_rotate_ints(int *arr, size_t len);
 void		ft_push_int(int *arr1, int *arr2, size_t *pos1, size_t *pos2);
 void		ft_swap_ints(int *arr, size_t pos);
 
+char*		ft_init_shared(t_sh* shared, const char** av, const bool PUSH_SWAP);
 void		ft_initialization(t_stack *stack, char *args);
 void		ft_output(int flag, t_sh *shared);
-char		*ft_validate_args(char *str, t_sh *shared);
+char*		ft_validate_args(char *str, t_sh *shared);
 int 		ft_get_fd(t_sh *shared, const char **arr);
+void		ft_print_help(const t_sh* shared);
 
-void		ft_handle_instrs_s(t_stack *stack, const char *str, bool print_instr);
-void		ft_handle_instrs_p(t_stack *stack, const char *str, bool print_instr);
-void		ft_handle_instrs_r(t_stack *stack, const char *str, bool print_instr);
+void		ft_handle_instrs_s(t_stack *stack, const char *str, bool print_instr, const int fd);
+void		ft_handle_instrs_p(t_stack *stack, const char *str, bool print_instr, const int fd);
+void		ft_handle_instrs_r(t_stack *stack, const char *str, bool print_instr, const int fd);
 #endif

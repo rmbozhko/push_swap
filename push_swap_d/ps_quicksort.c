@@ -87,7 +87,7 @@ size_t			ft_get_pivot(const int* arr, const size_t arr_len, const size_t len)
 	return (0);
 }
 
-void			ft_sort_stack_a(t_stack* stack, const size_t len)
+static void			ft_sort_stack_a(t_stack* stack, const size_t len, const int out_fd)
 {
 	size_t			i;
 	int 			pivot;
@@ -102,10 +102,10 @@ void			ft_sort_stack_a(t_stack* stack, const size_t len)
 	while (i <= len)
 	{
 		if (stack->stack_a[0] < pivot)
-			ft_handle_instrs_p(stack, "pb", true);
+			ft_handle_instrs_p(stack, "pb", true, out_fd);
 		else
 		{
-			ft_handle_instrs_r(stack, "ra", true);
+			ft_handle_instrs_r(stack, "ra", true, out_fd);
 			j++;
 		}
 		i++;
@@ -117,10 +117,10 @@ void			ft_sort_stack_a(t_stack* stack, const size_t len)
 	ft_print_iarr(stack->stack_b, stack->counter_b);
 	#endif
 	while (j-- > 0 && ((len / 2 + len % 2) != stack->counter_a))
-		ft_handle_instrs_r(stack, "rra", true);
+		ft_handle_instrs_r(stack, "rra", true, out_fd);
 }
 
-void			ft_sort_stack_b(t_stack* stack, const size_t len)
+static void			ft_sort_stack_b(t_stack* stack, const size_t len, const int out_fd)
 {
 	size_t			i;
 	int 			pivot;
@@ -136,20 +136,19 @@ void			ft_sort_stack_b(t_stack* stack, const size_t len)
 	{
 		if (stack->stack_b[0] < pivot)
 		{
-			ft_handle_instrs_r(stack, "rb", true);
+			ft_handle_instrs_r(stack, "rb", true, out_fd);
 			j++;
 		}
 		if (stack->stack_b[0] >= pivot)
-			ft_handle_instrs_p(stack, "pa", true);
+			ft_handle_instrs_p(stack, "pa", true, out_fd);
 			
 		i++;
 	}
-	// do i really need rra?? why?
 	while (j-- > 0 && (len / 2 != stack->counter_b))
-		ft_handle_instrs_r(stack, "rrb", true);
+		ft_handle_instrs_r(stack, "rrb", true, out_fd);
 }
 
-void			ft_quicksort(t_stack* stack, size_t len, bool STACK_A)
+void			ft_quicksort(t_stack* stack, size_t len, bool STACK_A, const int out_fd)
 {
 	#ifdef DEBUG
 	printf("QUICK_LEFT(STACK_A:%d)\n", STACK_A);
@@ -164,18 +163,18 @@ void			ft_quicksort(t_stack* stack, size_t len, bool STACK_A)
 	if (len <= 2) // base case
 	{
 		if (len == 2)
-			(STACK_A) ? ft_handle_two_elems(stack, true) : ft_handle_two_elems(stack, false);
+			(STACK_A) ? ft_handle_two_elems(stack, true, out_fd) : ft_handle_two_elems(stack, false, out_fd);
 		while (!STACK_A && len--)
-			ft_handle_instrs_p(stack, "pa", true);
+			ft_handle_instrs_p(stack, "pa", true, out_fd);
 		return ;
 	}
-	(STACK_A) ? ft_sort_stack_a(stack, len) : ft_sort_stack_b(stack, len);
+	(STACK_A) ? ft_sort_stack_a(stack, len, out_fd) : ft_sort_stack_b(stack, len, out_fd);
 	#ifdef DEBUG
 	printf("###########################GOING RECURSION##########################\n");
 	#endif
-	ft_quicksort(stack, len / 2 + len % 2, true);
+	ft_quicksort(stack, len / 2 + len % 2, true, out_fd);
 	#ifdef DEBUG
 	printf("___--------------_____________________------------______________\n");
 	#endif
-	ft_quicksort(stack, len / 2, false);
+	ft_quicksort(stack, len / 2, false, out_fd);
 }
