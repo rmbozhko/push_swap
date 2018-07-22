@@ -12,14 +12,17 @@
 
 #include "libft.h"
 
-void		ft_print_iarr(int *arr, size_t len)
+void		ft_print_iarr(int *arr, const size_t len)
 {
 	size_t		i;
 
 	i = 0;
-	while (i < len)
+	if (arr)
 	{
-		ft_putnbrendl(arr[i]);
-		i++;
+		while (i < len)
+		{
+			ft_putnbrendl(arr[i]);
+			i++;
+		}
 	}
 }

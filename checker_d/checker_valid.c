@@ -24,23 +24,28 @@ char		*ft_rotate_args(char *str, char c)
 	return (string);
 }
 
-bool 		ft_find_instr(char *line)
+int 		ft_find_instr(char *line)
 {
 	char 		**instrs;
 	size_t		j;
-	bool 		found;
+	int 		found;
 
-	found = false;
-	instrs = ft_get_defined_instrs();
-	j = 0;
-	while (j < INSTRS_NUM)
+	if (line && ft_strlen(line) > 1)
 	{
-		if (!ft_strcmp(line, instrs[j]))
-			found = true;
-		j++;
+		found = false;
+		instrs = ft_get_defined_instrs();
+		j = 0;
+		while (j < INSTRS_NUM)
+		{
+			if (!ft_strcmp(line, instrs[j]))
+				found = true;
+			j++;
+		}
+		ft_free_bidarr(instrs, ft_bidlen(instrs));
+		return (found);
 	}
-	ft_free_bidarr(instrs, ft_bidlen(instrs));
-	return (found);
+	else
+		return (false);
 }
 
 void		ft_validate_file_instrs(t_stack *stack, t_sh *shared)
@@ -65,14 +70,18 @@ void		ft_validate_file_instrs(t_stack *stack, t_sh *shared)
 			? ft_output(3, shared) : ft_output(2, shared));
 }
 
-void		ft_validate_instrs(t_stack *stack, t_sh *shared)
+void		ft_validate_instrs(t_stack *stack, t_sh *shared, int status)
 {
 	char 		*line;
-	int 		status;
 
 	line = ft_strnew(0);
 	while ((status = get_next_line(shared->in_fd, &line, ft_strnew(0))) > 0)
 	{
+		if (ft_strlen(line) == 0)
+		{
+			ft_strdel(&line);
+			return ;
+		}
 		if (!ft_find_instr(line))
 		{
 			ft_strdel(&line);
@@ -81,8 +90,7 @@ void		ft_validate_instrs(t_stack *stack, t_sh *shared)
 		else
 		{
 			ft_handle_instrs(stack, line);
-			if (shared->display_stacks)
-				ft_print_stacks(stack, shared);
+			(shared->display_stacks) ? ft_print_stacks(stack, shared) : 0;
 			ft_strdel(&line);
 		}
 	}

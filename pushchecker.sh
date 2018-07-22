@@ -147,7 +147,7 @@ while [ ${LOOPS} -gt 0 ]; do
             ((OKCOUNT++));
         fi
     fi
-
+    
     echo -e ${OPER};
     echo -e "./checker:  \c";
     R=$(cat ${TEMPFILE} | ./checker $A);

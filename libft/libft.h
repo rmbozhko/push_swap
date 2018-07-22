@@ -41,7 +41,7 @@ typedef	struct	s_node
 }				t_node;
 
 size_t			ft_abs(const int n);
-void			ft_print_iarr(int *arr, size_t len);
+void			ft_print_iarr(int *arr, const size_t len);
 char			*ft_reverse_str(char *str);
 int				ft_skip_whitespaces(char *str, int i);
 void			*ft_memset(void *b, int c, size_t len);

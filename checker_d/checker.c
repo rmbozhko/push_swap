@@ -39,7 +39,7 @@ int			main(int ac, char const **av)
 			if (shared.algo != NONE)
 				ft_throw_exception("There is no algorithms flag for ./checker");
 			ft_initialization(&stack, args);
-			(!shared.in_fd) ? ft_validate_instrs(&stack, &shared) : 
+			(!shared.in_fd) ? ft_validate_instrs(&stack, &shared, 0) : 
 							ft_validate_file_instrs(&stack, &shared);
 		}
 		else

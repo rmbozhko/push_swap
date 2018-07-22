@@ -348,6 +348,11 @@ void		ft_print_help(const t_sh* shared)
 	exit(0);
 }
 
+void		end(int flag)
+{
+	exit((flag == 1) ? 1 : 0);
+}
+
 void		ft_output(int flag, t_sh* shared)
 {
 	int 		fd;
@@ -367,6 +372,5 @@ void		ft_output(int flag, t_sh* shared)
 		ft_putendl_fd("OK", shared->out_fd);
 	}
 	ft_putstr_fd(RESET, fd);
-	// while (1);
-	exit((flag == 1) ? 1 : 0);
+	end(flag);
 }
