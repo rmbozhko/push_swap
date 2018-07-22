@@ -1,0 +1,28 @@
+./push_swap -insert 3 2 1
+./push_swap -h -insert 3 2 1
+./push_swap -bubble 3 2 1
+./push_swap -h -bubble 3 2 1
+./push_swap -quick 3 2 1
+./push_swap -h -quick 3 2 1
+
+./push_swap -istream tests/dataset1.txt -none
+./push_swap -istream tests/dataset1.txt -quick
+./push_swap -istream tests/dataset1.txt -insert
+./push_swap -istream tests/dataset1.txt -quick
+
+./push_swap -istream tests/dataset2.txt -none
+./push_swap -istream -quick tests/dataset2.txt -quick
+./push_swap -istream -insert tests/dataset2.txt -insert 
+./push_swap -istream -bubble tests/dataset2.txt -quick
+
+./push_swap -istream tests/dataset3.txt -none
+./push_swap -istream -quick tests/dataset3.txt -bubble
+./push_swap -istream -insert tests/dataset3.txt -insert
+./push_swap -istream -bubble tests/dataset3.txt -quick
+
+./push_swap -istream tests/dataset3.txt -c BLACK RED YELLOW -bubble
+./push_swap -istream tests/dataset3.txt -c MAGENTA -insert CYAN
+./push_swap -istream tests/dataset3.txt -quick -insert -bubble -c BLUE 3 2 1
+./push_swap -ostream res.txt 3 2 1
+./push_swap -istream tests/dataset2.txt -ostream res.txt 3 2 1 -quick -c MAGENTA
+./push_swap -ostream res.txt -istream tests/dataset2.txt 3 2 1 -insert -c GREEN
