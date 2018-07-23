@@ -319,6 +319,12 @@ void		ft_print_stacks(const t_stack* stack, const t_sh* shared)
 	ft_putstr_fd(RESET, shared->out_fd);
 }
 
+void		end(int flag)
+{
+	while (1);
+	exit((flag == 1) ? 1 : 0);
+}
+
 void		ft_print_help(const t_sh* shared)
 {
 	ft_putendl_fd("Usage: ./push_swap [FLAGS] INT_SEQUENCE", shared->out_fd);
@@ -345,12 +351,7 @@ void		ft_print_help(const t_sh* shared)
 	ft_putendl_fd("INT ... \"INT\" ... INT ... \"INT\" ...", shared->out_fd);
 	ft_putendl_fd((shared->ps_st) ? "INT_SEQUENCE can be passed as a file"
 			: "INT_SEQUENCE must be explicitly specified as command-line argument", shared->out_fd);
-	exit(0);
-}
-
-void		end(int flag)
-{
-	exit((flag == 1) ? 1 : 0);
+	end(0);
 }
 
 void		ft_output(int flag, t_sh* shared)

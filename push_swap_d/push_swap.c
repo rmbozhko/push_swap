@@ -32,24 +32,23 @@ char*		ft_combine_args(const int in_fd, char* args)
 		return (ft_bidarrjoin(input, ft_bidlen(input)));
 }
 
-void		ps_end(void)
-{
-	// while (1);
-	exit(0);
-}
+// void		ps_end(void)
+// {
+// 	while (1);
+// 	exit(0);
+// }
 
 int			main(int ac, char const *av[])
 {
 	t_stack			stack;
 	t_sh			shared;
-	char			*args;
+	char			*args = NULL;
 
 	if (ac > 1)
 	{
 		if (ft_bid_strlen(av + 1) > 0)
 		{
-			args = ft_init_shared(&shared, ++(av), true);
-			// while (1);
+			args = ft_init_shared(&shared, (av + 1), true);
 			if (shared.print_help)
 				ft_print_help(&shared);
 			if (shared.display_stacks)
@@ -60,7 +59,7 @@ int			main(int ac, char const *av[])
 				ft_output(1, &shared);
 			ft_initialization(&stack, args);
 			ft_sort_stack(&stack, &shared);
-			ps_end();
+			// ps_end();
 		}
 	}
 	else
