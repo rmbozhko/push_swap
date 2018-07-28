@@ -57,7 +57,7 @@ static void			ft_insertion_sort(t_stack* stack, const int out_fd)
 			pos = ft_find_smallest(stack->stack_a, stack->counter_a);
 			if (stack->stack_a[pos] == stack->stack_a[0])
 				ft_handle_instrs_p(stack, "pb", true, out_fd);
-			else if ((int)(stack->counter_a / 2) < pos)
+			else if ((size_t)(stack->counter_a / 2) < pos)
 				ft_handle_instrs_r(stack, "rra", true, out_fd);
 			else
 			{
@@ -90,7 +90,7 @@ void		ft_sort_stack(t_stack *stack, const t_sh *shared)
 	{
 		if (shared->algo == BUBBLE)
 			ft_bubble_sort(stack, shared->out_fd);
-		else if (shared->algo == INSERT)
+		else if (shared->algo == INSERT || stack->counter_a < OPTIMUM_LEN)
 			ft_insertion_sort(stack, shared->out_fd);
 		else
 			ft_quicksort(stack, stack->counter_a, true, shared->out_fd);

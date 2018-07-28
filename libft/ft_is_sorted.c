@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/07 17:58:46 by rbozhko           #+#    #+#             */
-/*   Updated: 2018/07/07 17:58:48 by rbozhko          ###   ########.fr       */
+/*   Created: 2018/07/28 18:55:10 by rbozhko           #+#    #+#             */
+/*   Updated: 2018/07/28 18:55:11 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ bool		ft_is_sorted(const int *arr, const size_t len)
 		i = 0;
 		while (i < len)
 		{
-		    if (i + 1 == len)
-		        break ;
-		    else if (arr[i] > arr[i + 1])
+			if (i + 1 == len)
+				break ;
+			else if (arr[i] > arr[i + 1])
 				return (false);
 			i++;
 		}

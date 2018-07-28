@@ -6,7 +6,7 @@
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/31 11:32:56 by rbozhko           #+#    #+#             */
-/*   Updated: 2017/10/29 21:37:11 by rbozhko          ###   ########.fr       */
+/*   Updated: 2018/07/28 18:48:02 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int			ft_is_numeric(const char *str)
 			i++;
 		}
 	}
-	else
-		ft_throw_exception("ft_is_numeric: Passed string is NULL or zero length");
 	if (sign == 1)
 		return ((i > 1) ? 1 : 0);
 	else

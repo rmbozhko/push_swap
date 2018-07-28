@@ -6,7 +6,7 @@ SRC = sh_add_fts.c sh_instrs_def.c sh_args_validating.c sh_instrs_handle.c
 
 OBJ = $(SRC:.c=.o)
 DEBUG = #-DDEBUG
-CFLAGS = -c $(DEBUG)#-Wall -Wextra -Werror
+CFLAGS = -c -Wall -Wextra -Werror
 HEADER = shared.h
 
 all: $(NAME)

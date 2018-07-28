@@ -6,7 +6,7 @@ SRC = push_swap.c ps_sorting.c ps_quicksort.c
 
 OBJ = $(SRC:.c=.o)
 DEBUG = -DDEBUG
-CFLAGS = -c #-Wall -Wextra -Werror
+CFLAGS = -c -Wall -Wextra -Werror
 HEADER = push_swap.h
 
 all: $(NAME)

@@ -6,7 +6,7 @@ SRC = checker.c checker_valid.c checker_bonus_output.c checker_instrs.c
 
 OBJ = $(SRC:.c=.o)
 DEBUG = #-DDEBUG
-CFLAGS = -c $(DEBUG)#-Wall -Wextra -Werror
+CFLAGS = -c -Wall -Wextra -Werror
 HEADER = checker.h
 
 all: $(NAME)

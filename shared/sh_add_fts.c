@@ -321,7 +321,6 @@ void		ft_print_stacks(const t_stack* stack, const t_sh* shared)
 
 void		end(int flag)
 {
-	while (1);
 	exit((flag == 1) ? 1 : 0);
 }
 

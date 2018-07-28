@@ -61,20 +61,20 @@ int	check_median(const t_stack *stack, const int pivot, const size_t len, bool S
 	return (0);
 }
 
-size_t			ft_get_pivot(const int* arr, const size_t arr_len, const size_t len)
+size_t			ft_get_pivot(const int* arr, const size_t len)
 {
-	int	i;
-	int	j;
-	int	nb;
-	int	med;
+	size_t		i;
+	size_t		j;
+	int			nb;
+	int			med;
 
-	j = 0;//arr_len - len;
-	while (j < len)//arr_len)
+	j = 0;
+	while (j < len)
 	{
 		med = 0;
-		i = 0;//arr_len - len;
+		i = 0;
 		nb = arr[j];
-		while (i < len)//arr_len)
+		while (i < len)
 		{
 			if (nb != arr[i])
 				(arr[i] > nb) ? med++ : med--;
@@ -95,7 +95,7 @@ static void			ft_sort_stack_a(t_stack* stack, const size_t len, const int out_fd
 
 	j = 0;
 	i = 0;
-	pivot = stack->stack_a[ft_get_pivot(stack->stack_a, stack->counter_a, len)];
+	pivot = stack->stack_a[ft_get_pivot(stack->stack_a, len)];
 	#ifdef DEBUG
 	printf("pivot:%d|len:%zu\n", pivot, len);
 	#endif
@@ -128,7 +128,7 @@ static void			ft_sort_stack_b(t_stack* stack, const size_t len, const int out_fd
 
 	j = 0;
 	i = 0;
-	pivot = stack->stack_b[ft_get_pivot(stack->stack_b, stack->counter_b, len)];
+	pivot = stack->stack_b[ft_get_pivot(stack->stack_b, len)];
 	#ifdef DEBUG
 	printf("pivot:%d|len:%zu\n", pivot, len);
 	#endif

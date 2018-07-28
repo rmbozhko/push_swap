@@ -6,7 +6,7 @@
 /*   By: rbozhko <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 16:53:46 by rbozhko           #+#    #+#             */
-/*   Updated: 2017/10/29 21:37:46 by rbozhko          ###   ########.fr       */
+/*   Updated: 2018/07/28 18:42:09 by rbozhko          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-int				ft_numlen(int n);
+size_t			ft_numlen(int n);
 int				ft_is_whitespace(char c);
 int				ft_isspace(char c);
 int				ft_words_count(const char *s, char c);
@@ -117,8 +117,8 @@ void			ft_countdown(int end);
 int				ft_bid_findstr(char *room, char **temp);
 char			**ft_create_bid_arr(size_t size, char *str);
 size_t			ft_count_char(char *str, char c);
-size_t			ft_find_smallest(const int* arr, const size_t arr_size);
-size_t			ft_find_biggest(const int* arr, const size_t arr_size);
+size_t			ft_find_smallest(const int *arr, const size_t arr_size);
+size_t			ft_find_biggest(const int *arr, const size_t arr_size);
 void			ft_free_bidarr(char **arr, size_t len);
 char			*ft_lstrip(char *str);
 char			*ft_rstrip(char *str);
